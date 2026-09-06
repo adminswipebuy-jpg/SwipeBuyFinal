@@ -1,0 +1,1 @@
+SwipeBuy V15 is the final release handoff package. Product feature work is frozen; remaining work is environment validation, real-device QA, backend/provider verification, and the actual Flutter release build.

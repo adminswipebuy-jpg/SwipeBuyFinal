@@ -1,0 +1,471 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function isAdmin() {
+      return signedIn() && request.auth.token.admin == true;
+    }
+
+    function validUserWrite() {
+      return request.resource.data.keys().hasOnly([
+        'displayName',
+        'accountType',
+        'countryCode',
+        'photoUrl',
+        'bio',
+        'updatedAt'
+      ]);
+    }
+
+    // User profiles: users may read/write their own safe profile fields.
+    // Privileged fields such as role/admin status are server-controlled.
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+
+      allow create: if isOwner(uid)
+        && validUserWrite()
+        && request.resource.data.accountType in ['customer', 'business', 'freelancer'];
+
+      allow update: if isOwner(uid)
+        && validUserWrite()
+        && request.resource.data.accountType in ['customer', 'business', 'freelancer'];
+
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    // Public listings may be read only when published.
+    match /listings/{listingId} {
+      allow read: if resource.data.status == 'published'
+                  || isAdmin()
+                  || (signedIn() && resource.data.ownerId == request.auth.uid);
+
+      allow create: if signedIn()
+                    && request.resource.data.ownerId == request.auth.uid
+                    && request.resource.data.status in ['draft', 'pending_review'];
+
+      allow update: if isAdmin()
+                    || (signedIn()
+                        && resource.data.ownerId == request.auth.uid
+                        && request.resource.data.ownerId == resource.data.ownerId
+                        && request.resource.data.status in ['draft', 'pending_review']);
+
+      allow delete: if isAdmin()
+                    || (signedIn() && resource.data.ownerId == request.auth.uid);
+    }
+
+    // Orders are customer/business scoped. Money totals/status transitions
+    // should be performed by trusted backend functions, not arbitrary clients.
+    match /orders/{orderId} {
+      allow read: if signedIn()
+                  && (resource.data.customerId == request.auth.uid
+                      || resource.data.businessId == request.auth.uid
+                      || isAdmin());
+
+      allow create: if signedIn()
+                    && request.resource.data.customerId == request.auth.uid
+                    && request.resource.data.status == 'pending';
+
+      // Clients cannot change financial totals or payment state.
+      allow update: if isAdmin()
+                    || (signedIn()
+                        && resource.data.customerId == request.auth.uid
+                        && request.resource.data.diff(request.resource.data).affectedKeys()
+                          .hasOnly(['customerNote', 'updatedAt']));
+
+      allow delete: if isAdmin();
+    }
+
+    // Wallets and transactions are server-owned. Never allow client balance writes.
+    match /wallets/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow write: if false;
+    }
+
+    match /transactions/{transactionId} {
+      allow read: if signedIn()
+                  && (resource.data.userId == request.auth.uid || isAdmin());
+      allow write: if false;
+    }
+
+    // Applications: applicants can create/read their own; employers can read
+    // applications for their listings; status changes should be backend/admin.
+    match /applications/{applicationId} {
+      allow read: if signedIn()
+                  && (resource.data.applicantId == request.auth.uid
+                      || resource.data.businessId == request.auth.uid
+                      || isAdmin());
+
+      allow create: if signedIn()
+                    && request.resource.data.applicantId == request.auth.uid
+                    && request.resource.data.status == 'submitted';
+
+      allow update: if isAdmin()
+                    || (signedIn()
+                        && resource.data.applicantId == request.auth.uid
+                        && request.resource.data.diff(request.resource.data).affectedKeys()
+                          .hasOnly(['candidateNote', 'updatedAt']));
+
+      allow delete: if isAdmin();
+    }
+
+    // Reports are private. Users can submit reports but cannot modify moderation results.
+    match /reports/{reportId} {
+      allow read: if isAdmin()
+                  || (signedIn() && resource.data.reporterId == request.auth.uid);
+
+      allow create: if signedIn()
+                    && request.resource.data.reporterId == request.auth.uid
+                    && request.resource.data.status == 'open';
+
+      allow update, delete: if isAdmin();
+    }
+
+    // Follows/saves/likes are user-owned interaction documents.
+    match /users/{uid}/private/{document=**} {
+      allow read, write: if isOwner(uid);
+    }
+
+    match /content_items/{contentId} {
+      allow read: if resource.data.status == 'published' || isAdmin() || (signedIn() && resource.data.creatorId == request.auth.uid);
+      allow create: if signedIn() && request.resource.data.creatorId == request.auth.uid;
+      allow update: if isAdmin() || (signedIn() && resource.data.creatorId == request.auth.uid);
+      allow delete: if isAdmin() || (signedIn() && resource.data.creatorId == request.auth.uid);
+    }
+
+    match /content_events/{eventId} {
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /content_likes/{likeId} {
+      allow read: if signedIn() && resource.data.userId == request.auth.uid;
+      allow create, delete: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow update: if false;
+    }
+
+    match /content_comments/{commentId} {
+      allow read: if true;
+      allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid);
+    }
+
+    // Default deny.
+
+    match /notifications/{notificationId} {
+      allow read: if signedIn() && resource.data.userId == request.auth.uid;
+      allow update: if signedIn()
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create, delete: if isAdmin();
+    }
+
+    match /users/{uid}/devices/{tokenId} {
+      allow read, delete: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create, update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.token == tokenId;
+    }
+
+
+    match /conversations/{conversationId} {
+      allow read: if signedIn() && request.auth.uid in resource.data.memberIds;
+      allow create: if signedIn()
+        && request.auth.uid in request.resource.data.memberIds
+        && request.resource.data.memberIds.size() == 2;
+      allow update: if signedIn()
+        && request.auth.uid in resource.data.memberIds
+        && request.resource.data.memberIds == resource.data.memberIds;
+
+      match /messages/{messageId} {
+        allow read: if signedIn()
+          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.memberIds;
+        allow create: if signedIn()
+          && request.auth.uid == request.resource.data.senderId
+          && request.resource.data.recipientId != request.auth.uid
+          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.memberIds
+          && request.resource.data.recipientId in get(/databases/$(database)/documents/conversations/$(conversationId)).data.memberIds;
+        allow update: if signedIn()
+          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.memberIds
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['readBy']);
+        allow delete: if false;
+      }
+    }
+
+    match /stories/{storyId} {
+      allow read: if resource.data.status == 'published';
+      allow create: if signedIn() && request.resource.data.creatorId == request.auth.uid;
+      allow update: if signedIn() && resource.data.creatorId == request.auth.uid;
+      allow delete: if signedIn() && resource.data.creatorId == request.auth.uid;
+    }
+
+    match /live_sessions/{sessionId} {
+      allow read: if resource.data.status == 'live';
+      allow create: if signedIn() && request.resource.data.creatorId == request.auth.uid;
+      allow update: if signedIn() && resource.data.creatorId == request.auth.uid;
+      allow delete: if signedIn() && resource.data.creatorId == request.auth.uid;
+    }
+
+    match /message_reports/{reportId} {
+      allow create: if signedIn() && request.resource.data.reporterId == request.auth.uid;
+      allow read: if isAdmin() || (signedIn() && resource.data.reporterId == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    match /community_reports/{reportId} {
+      allow create: if signedIn() && request.resource.data.reporterId == request.auth.uid;
+      allow read: if isAdmin() || (signedIn() && resource.data.reporterId == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    match /users/{uid}/blocks/{targetUid} {
+      allow read, write, delete: if isOwner(uid);
+    }
+
+    match /conversations/{conversationId} {
+      allow read: if signedIn() && request.auth.uid in resource.data.memberIds;
+      allow create: if signedIn() && request.auth.uid in request.resource.data.memberIds;
+      allow update: if signedIn() && request.auth.uid in resource.data.memberIds
+        && request.resource.data.memberIds == resource.data.memberIds;
+      match /messages/{messageId} {
+        allow read: if signedIn() && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.memberIds;
+        allow create: if signedIn()
+          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.memberIds
+          && request.resource.data.senderId == request.auth.uid;
+        allow update: if signedIn()
+          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.memberIds
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['readBy','status','reactions']);
+        allow delete: if false;
+      }
+    }
+
+    match /communities/{communityId}/posts/{postId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.authorId == request.auth.uid;
+      allow update: if signedIn() && resource.data.authorId == request.auth.uid;
+      allow delete: if isAdmin() || (signedIn() && resource.data.authorId == request.auth.uid);
+    }
+
+    match /communities/{communityId}/members/{uid} {
+      allow read: if signedIn();
+      allow create, delete: if isOwner(uid);
+      allow update: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+
+    match /payment_sessions/{sessionId} {
+      allow read: if signedIn() &&
+        (resource.data.customerId == request.auth.uid || isAdmin());
+      allow create, update, delete: if false;
+    }
+
+    match /chats/{chatId} {
+      allow read: if signedIn() &&
+        request.auth.uid in resource.data.participantIds;
+      allow create: if signedIn() &&
+        request.auth.uid in request.resource.data.participantIds;
+      allow update: if signedIn() &&
+        request.auth.uid in resource.data.participantIds &&
+        request.auth.uid in request.resource.data.participantIds;
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        allow read: if signedIn() &&
+          request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participantIds;
+        allow create: if signedIn() &&
+          request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participantIds &&
+          request.resource.data.senderId == request.auth.uid;
+        allow update, delete: if false;
+      }
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if resource.data.status == 'published' ||
+        (signedIn() && (resource.data.customerId == request.auth.uid || isAdmin()));
+      allow create: if signedIn() && request.resource.data.customerId == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    match /users/{uid}/notifications/{notificationId} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow update: if signedIn() && request.auth.uid == uid &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create, delete: if false;
+    }
+
+    match /users/{uid}/settings/{settingId} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+
+    match /user_preferences/{uid} {
+      allow read, write: if signedIn() && request.auth.uid == uid;
+    }
+
+    match /bookings/{bookingId} {
+      allow read: if signedIn() &&
+        (resource.data.customerId == request.auth.uid ||
+         resource.data.providerId == request.auth.uid || isAdmin());
+      allow create: if signedIn() &&
+        request.resource.data.customerId == request.auth.uid;
+      allow update: if signedIn() &&
+        (resource.data.customerId == request.auth.uid ||
+         resource.data.providerId == request.auth.uid || isAdmin()) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(
+          ['status', 'note', 'updatedAt']
+        );
+      allow delete: if false;
+    }
+
+    match /admin_logs/{logId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /listing_events/{eventId} {
+      allow create: if signedIn() &&
+        (request.resource.data.userId == request.auth.uid ||
+         request.resource.data.userId == null);
+      allow read, update, delete: if isAdmin();
+    }
+}
+
+/* V4.5 Creator Studio: stories + live sessions */
+
+/* V5.0 Monetization + Creator Economy */
+
+match /ad_campaigns/{campaignId} {
+  allow read: if signedIn() && (resource.data.ownerId == request.auth.uid || isAdmin());
+  allow create: if signedIn() && request.resource.data.ownerId == request.auth.uid;
+  allow update: if signedIn() && (resource.data.ownerId == request.auth.uid || isAdmin());
+  allow delete: if signedIn() && (resource.data.ownerId == request.auth.uid || isAdmin());
+}
+
+match /payout_requests/{requestId} {
+  allow create: if signedIn() && request.resource.data.creatorId == request.auth.uid;
+  allow read: if signedIn() && (resource.data.creatorId == request.auth.uid || isAdmin());
+  allow update, delete: if isAdmin();
+}
+
+match /users/{uid}/creator_earnings/{earningId} {
+  allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+  allow create, update, delete: if isAdmin();
+
+/* V5.1 Wallet: client creates requests; balances/ledger are backend-controlled */
+match /wallets/{uid} {
+  allow read: if signedIn() && request.auth.uid == uid;
+  allow write: if false;
+  match /transactions/{transactionId} {
+    allow read: if signedIn() && request.auth.uid == uid;
+    allow write: if false;
+
+// SwipeBuy V5.5 smart alerts: users may read/acknowledge their own alerts;
+// creation should be done by trusted backend code.
+match /smart_alerts/{alertId} {
+  allow read: if signedIn() && resource.data.userId == uid();
+  allow update: if signedIn() && resource.data.userId == uid()
+    && request.resource.data.userId == resource.data.userId
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+  allow create, delete: if false;
+}
+  }
+}
+
+match /wallet_deposit_requests/{requestId} {
+  allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+  allow read: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+  allow update, delete: if isAdmin();
+}
+
+match /wallet_withdrawal_requests/{requestId} {
+  allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+  allow read: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+  allow update, delete: if isAdmin();
+}
+
+
+/* V5.8 Multimodal AI: no direct client writes to AI results. */
+match /ai_analysis_results/{analysisId} {
+  allow read: if signedIn() && resource.data.userId == request.auth.uid;
+  allow create, update, delete: if false;
+}
+
+}
+
+// V7.4 marketplace 2.0
+match /users/{userId}/wishlist/{itemId} {
+  allow read, write: if request.auth != null && request.auth.uid == userId;
+}
+match /users/{userId}/comparisons/{itemId} {
+  allow read, write: if request.auth != null && request.auth.uid == userId;
+}
+match /returns/{returnId} {
+  allow create: if request.auth != null && request.resource.data.requesterId == request.auth.uid;
+  allow read: if request.auth != null && resource.data.requesterId == request.auth.uid;
+  allow update: if false;
+}
+match /couponClaims/{claimId} {
+  allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+  allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+    match /ai_assistant_history/{docId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+
+
+
+  match /ai_automations/{automationId} {
+    allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+    allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+  }
+
+    match /ai_action_requests/{requestId} {
+      allow read, create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+}
+
+
+// V9.9 AI agent economy
+match /agent_purchase_requests/{requestId} {
+  allow create: if request.auth != null && request.resource.data.buyerId == request.auth.uid;
+  allow read: if request.auth != null && resource.data.buyerId == request.auth.uid;
+  allow update, delete: if false;
+}
+match /agent_payout_requests/{requestId} {
+  allow create: if request.auth != null && request.resource.data.creatorId == request.auth.uid;
+  allow read: if request.auth != null && resource.data.creatorId == request.auth.uid;
+  allow update, delete: if false;
+}
+match /users/{userId}/agent_purchases/{purchaseId} {
+  allow read: if request.auth != null && request.auth.uid == userId;
+  allow write: if false;
+}
+match /users/{userId}/agent_earnings/{entryId} {
+  allow read: if request.auth != null && request.auth.uid == userId;
+  allow write: if false;
+
+
+// V10.2 FX quote requests: users may create/read their own quote requests.
+match /fxQuoteRequests/{quoteId} {
+  allow create: if isSignedIn() && request.resource.data.uid == uid();
+  allow read: if isSignedIn() && resource.data.uid == uid();
+  allow update, delete: if false;
+}
+
+    match /professional_bookings/{bookingId} {
+      allow read: if signedIn() && resource.data.clientId == request.auth.uid;
+      allow create: if signedIn() && request.resource.data.clientId == request.auth.uid;
+      allow update, delete: if false;
+    }
+}

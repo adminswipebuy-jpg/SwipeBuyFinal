@@ -1,0 +1,39 @@
+plugins {
+    id "com.android.application"
+    id "com.google.gms.google-services"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+def kp = new Properties()
+def kpf = rootProject.file("key.properties")
+if (kpf.exists()) { kp.load(new FileInputStream(kpf)) }
+
+android {
+    namespace = "com.swipebuy.worldwide"
+    compileSdk = flutter.compileSdkVersion
+    defaultConfig {
+        applicationId = "com.swipebuy.worldwide"
+        minSdk = 23
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+    signingConfigs {
+        release {
+            if (kpf.exists()) {
+                keyAlias = kp["keyAlias"]
+                keyPassword = kp["keyPassword"]
+                storeFile = kp["storeFile"] ? file(kp["storeFile"]) : null
+                storePassword = kp["storePassword"]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            if (kpf.exists()) { signingConfig = signingConfigs.release }
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+}
+flutter { source = "../.." }

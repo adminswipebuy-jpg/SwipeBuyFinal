@@ -1,0 +1,6 @@
+# Copy to android/key.properties on your build computer.
+# NEVER commit key.properties or your keystore.
+storePassword=REPLACE_WITH_KEYSTORE_PASSWORD
+keyPassword=REPLACE_WITH_KEY_PASSWORD
+keyAlias=swipebuy
+storeFile=../keystore/swipebuy-upload.jks
