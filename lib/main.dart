@@ -7,6 +7,7 @@ import 'services/discovery_service.dart';
 import 'services/search_service.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'firebase_options.dart';
