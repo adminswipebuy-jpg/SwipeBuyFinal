@@ -208,7 +208,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     setState(() { busy = true; error = null; });
     try {
-      await AuthService.signUp(name.text.trim(), email.text.trim(), password.text, type);
+      await AuthService.createAccount(
+  email: email.text.trim(),
+  password: password.text,
+  displayName: name.text.trim(),
+  accountType: type,
+);
       if (mounted) Navigator.pop(context);
     } catch (_) {
       if (mounted) setState(() => error = 'Could not create the account. Try again.');
