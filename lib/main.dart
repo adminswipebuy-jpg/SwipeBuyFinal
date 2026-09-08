@@ -501,22 +501,22 @@ class _HomePageState extends State<HomePage> {
                   icon: const Icon(Icons.more_horiz_rounded, size: 25),
                   onSelected: (value) {
                     switch (value) {
-                      case 'ai': _open(const AiAssistantWorkspacePage()); break;
-                      case 'nearby': _open(const LocalDiscoveryPage()); break;
-                      case 'map': _open(const GlobalMapPage()); break;
-                      case 'alerts': _open(const SmartAlertsPage()); break;
-                      case 'settings': _open(const PersonalizationPage()); break;
-                      case 'marketplace': _open(const MarketplaceV2Page()); break;
-                      case 'seller': _open(const SellerCommerceProPage()); break;
-                      case 'merchant_ops': _open(const MerchantOperationsPage()); break;
-                      case 'marketing': _open(const MarketingGrowthPage()); break;
-                      case 'partnerships': _open(const CreatorBrandPartnershipsPage()); break;
-                      case 'collaboration': _open(const ProfessionalCollaborationPage()); break;
-                      case 'integration': _open(const IntegrationHubPage()); break;
-                      case 'audit': _open(const CoreFlowAuditPage()); break;
-                      case 'finalcheck': _open(const FinalIntegrationChecklistPage()); break;
-                      case 'v15candidate': _open(const V15ReleaseCandidatePage()); break;
-                      case 'v15gate': _open(const V15ReleaseGatePage()); break;
+                      case 'ai': _open(AiAssistantWorkspacePage()); break;
+case 'nearby': _open(LocalDiscoveryPage()); break;
+case 'map': _open(GlobalMapPage()); break;
+case 'alerts': _open(SmartAlertsPage()); break;
+case 'settings': _open(PersonalizationPage()); break;
+case 'marketplace': _open(MarketplaceV2Page()); break;
+case 'seller': _open(SellerCommerceProPage()); break;
+case 'merchant_ops': _open(MerchantOperationsPage()); break;
+case 'marketing': _open(MarketingGrowthPage()); break;
+case 'partnerships': _open(CreatorBrandPartnershipsPage()); break;
+case 'collaboration': _open(ProfessionalCollaborationPage()); break;
+case 'integration': _open(IntegrationHubPage()); break;
+case 'audit': _open(CoreFlowAuditPage()); break;
+case 'finalcheck': _open(FinalIntegrationChecklistPage()); break;
+case 'v15candidate': _open(V15ReleaseCandidatePage()); break;
+case 'v15gate': _open(V15ReleaseGatePage()); break;
                     }
                   },
                   itemBuilder: (_) => const [
