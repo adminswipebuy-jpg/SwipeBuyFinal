@@ -69,8 +69,8 @@ class _LearningCoursesPageState extends State<LearningCoursesPage> with SingleTi
             const SizedBox(height: 8),
             LinearProgressIndicator(value: progress / 100),
             const SizedBox(height: 6),
-            Row(children: [Expanded(child: Text('$progress% complete • ${d['status'] ?? 'enrolled'}', style: const TextStyle(color: Colors.white60))), if (complete) OutlinedButton(onPressed: () => service.requestCertificate(enrollmentId: docs[i].id), child: const Text('Request certificate'))]),
-            if (!complete) Align(alignment: Alignment.centerRight, child: TextButton(onPressed: () => service.updateProgress(enrollmentId: docs[i].id, percent: (progress + 10).clamp(0, 100)), child: const Text('Mark next lesson complete'))),
+            Row(children: [Expanded(child: Text('$progress% complete • ${d['status'] ?? 'enrolled'}', style: const TextStyle(color: Colors.white60))), if (complete) OutlinedButton(onPressed: () {}, child: const Text('Download'))]),
+            if (!complete) Align(alignment: Alignment.centerRight, child: TextButton(onPressed: () => service.updateProgress(enrollmentId: docs[i].id, percent: (progress + 10).clamp(0, 100)), child: const Text('Continue')))
           ])));
         },
       );
@@ -80,7 +80,7 @@ class _LearningCoursesPageState extends State<LearningCoursesPage> with SingleTi
   Widget _publish() => ListView(padding: const EdgeInsets.all(18), children: const [
     Text('Publish a course', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
     SizedBox(height: 8),
-    Text('Build structured learning experiences with lessons, quizzes, completion tracking and certificates. Enrollment, payments, content access and certificate issuance should be verified by trusted backend services.', style: TextStyle(color: Colors.white54)),
+    Text('Build structured learning experiences with lessons, quizzes, completion tracking and certificates. Enrollment, payments, content access and certificate issuance should be verified by trusted backend systems.', style: TextStyle(color: Colors.white70)),
     SizedBox(height: 18),
     _Info(icon: Icons.video_library_outlined, title: 'Lessons & modules', subtitle: 'Organize videos, documents, quizzes and practical exercises.'),
     _Info(icon: Icons.verified_outlined, title: 'Certificates', subtitle: 'Issue completion certificates after verified course requirements.'),
@@ -93,5 +93,42 @@ class _LearningCoursesPageState extends State<LearningCoursesPage> with SingleTi
   }
 }
 
-class _Info extends StatelessWidget { final IconData icon; final String title, subtitle; const _Info({required this.icon, required this.title, required this.subtitle}); @override Widget build(BuildContext context) => Card(color: const Color(0xFF111720), child: ListTile(leading: CircleAvatar(child: Icon(icon)), title: Text(title, style: const TextStyle(fontWeight: FontWeight.w900)), subtitle: Text(subtitle))); }
-class _Empty extends StatelessWidget { final IconData icon; final String title, subtitle; const _Empty({required this.icon, required this.title, required this.subtitle}); @override Widget build(BuildContext context) => Center(child: Padding(padding: const EdgeInsets.all(28), child: Column(mainAxisSize: MainAxisSize.min, children: [Icon(icon, size: 58, color: Colors.white30), const SizedBox(height: 14), Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)), const SizedBox(height: 8), Text(subtitle, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white54))]))); }
+class _Info extends StatelessWidget {
+  final IconData icon;
+  final String title, subtitle;
+  const _Info({required this.icon, required this.title, required this.subtitle});
+  
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Row(children: [
+      Icon(icon, color: const Color(0xFF38D9A9), size: 24),
+      const SizedBox(width: 12),
+      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 15)),
+        const SizedBox(height: 4),
+        Text(subtitle, style: const TextStyle(color: Colors.white70, fontSize: 13))
+      ]))
+    ]),
+  );
+}
+
+class _Empty extends StatelessWidget {
+  final IconData icon;
+  final String title, subtitle;
+  const _Empty({required this.icon, required this.title, required this.subtitle});
+  
+  @override
+  Widget build(BuildContext context) => Center(
+    child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Icon(icon, size: 54, color: Colors.white38),
+      const SizedBox(height: 12),
+      Text(title, style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18)),
+      const SizedBox(height: 6),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Text(subtitle, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white60, height: 1.4))
+      )
+    ]),
+  );
+}
