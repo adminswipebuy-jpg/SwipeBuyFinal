@@ -5,6 +5,7 @@ import 'services/transaction_flow_service.dart';
 import 'services/admin_service.dart';
 import 'services/discovery_service.dart';
 import 'services/search_service.dart';
+import 'services/personalization_service.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
