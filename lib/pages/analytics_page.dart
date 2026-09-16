@@ -120,7 +120,7 @@ class _SectionCard extends StatelessWidget {
   final Widget child;
   const _SectionCard({required this.title, required this.child});
   @override
-  Widget build(BuildContext context) => Card(color: const Color(0xFF111720), child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w900)), const SizedBox(height: 12), child]));
+  Widget build(BuildContext context) => Card(color: const Color(0xFF111720), child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w900)), const SizedBox(height: 12), child])));
 }
 
 class _ChipStat extends StatelessWidget {

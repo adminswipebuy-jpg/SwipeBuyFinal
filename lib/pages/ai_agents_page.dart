@@ -135,9 +135,9 @@ class _AiAgentsPageState extends State<AiAgentsPage> {
         CircleAvatar(radius: 15, child: Text('${i + 1}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w900))),
         const SizedBox(width: 10),
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(step.title, style: const TextStyle(fontWeight: FontWeight.w800)), const SizedBox(height: 2), Text(step.description, style: const TextStyle(color: Colors.white60, height: 1.3))])),
-      ]);
+      ]));
     }),
   ])));
 
-  Widget _pill(String label, IconData icon) => Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7), decoration: BoxDecoration(color: Colors.white.withOpacity(.06), borderRadius: BorderRadius.circular(999), border: Border.all(color: Colors.white10)), child: Row(mainAxisSize: MainAxisSize.min, children: [Icon(icon, size: 16), const SizedBox(width: 6), Text(label, style: const TextStyle(fontWeight: FontWeight.w700))]));
+  Widget _pill(String label, IconData icon) => Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7), decoration: BoxDecoration(color: Colors.white.withValues(alpha: .06), borderRadius: BorderRadius.circular(999), border: Border.all(color: Colors.white10)), child: Row(mainAxisSize: MainAxisSize.min, children: [Icon(icon, size: 16), const SizedBox(width: 6), Text(label, style: const TextStyle(fontWeight: FontWeight.w700))]));
 }

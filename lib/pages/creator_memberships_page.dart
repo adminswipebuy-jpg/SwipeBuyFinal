@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../services/auth_service.dart';
 import '../services/creator_membership_service.dart';
 
 class CreatorMembershipsPage extends StatefulWidget {
@@ -150,7 +149,7 @@ class _CreatorMembershipsPageState extends State<CreatorMembershipsPage> {
           const SizedBox(height: 10),
           TextField(controller: price, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Monthly price')),
           const SizedBox(height: 10),
-          DropdownButtonFormField<String>(value: currency, items: const ['USD', 'GHS', 'NGN', 'KES', 'GBP', 'EUR'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => currency = v ?? currency), decoration: const InputDecoration(labelText: 'Currency')),
+          DropdownButtonFormField<String>(initialValue: currency, items: const ['USD', 'GHS', 'NGN', 'KES', 'GBP', 'EUR'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => currency = v ?? currency), decoration: const InputDecoration(labelText: 'Currency')),
           const SizedBox(height: 10),
           TextField(controller: perks, maxLines: 3, decoration: const InputDecoration(labelText: 'Perks')),
         ])),

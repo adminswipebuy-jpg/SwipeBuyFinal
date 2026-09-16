@@ -73,7 +73,7 @@ class _CreatorEventsCommercePageState extends State<CreatorEventsCommercePage> w
     await showDialog(context: context, builder: (context) => StatefulBuilder(builder: (_, setModal) => AlertDialog(
       title: const Text('Reserve creator-event ticket'),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
-        DropdownButtonFormField<String>(value: type, items: const ['General','VIP','Fan Pass'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setModal(() => type = v ?? type)),
+        DropdownButtonFormField<String>(initialValue: type, items: const ['General','VIP','Fan Pass'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setModal(() => type = v ?? type)),
         const SizedBox(height: 10), Row(children: [const Text('Quantity'), const Spacer(), IconButton(onPressed: quantity <= 1 ? null : () => setModal(() => quantity--), icon: const Icon(Icons.remove)), Text('$quantity', style: const TextStyle(fontWeight: FontWeight.w900)), IconButton(onPressed: () => setModal(() => quantity++), icon: const Icon(Icons.add))]),
         const SizedBox(height: 8), const Text('Payment and ticket issuance happen only after trusted backend verification.', style: TextStyle(color: Colors.white54)),
       ]),

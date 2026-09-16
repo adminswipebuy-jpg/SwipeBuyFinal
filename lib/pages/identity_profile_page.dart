@@ -1,60 +1,56 @@
 import 'package:flutter/material.dart';
+
 import '../services/auth_service.dart';
-import '../services/business_service.dart';
-import 'communications_page.dart';
-import 'creator_studio_page.dart';
-import 'creator_profile_page.dart';
-import 'creator_discovery_page.dart';
-import 'monetization_page.dart';
-import 'personalization_page.dart';
-import 'safety_center_page.dart';
-import 'wallet_page.dart';
-import 'global_payments_page.dart';
-import 'fx_commerce_page.dart';
-import 'command_center_page.dart';
-import 'analytics_page.dart';
-import 'connections_page.dart';
-import 'notifications_page.dart';
-import 'ai_command_center_2_page.dart';
-import 'ai_automation_page.dart';
+import 'advanced_moderation_page.dart';
+import 'age_assurance_family_safety_page.dart';
+import 'ai_agent_marketplace_page.dart';
+import 'ai_agent_platform_page.dart';
+import 'ai_agent_trust_page.dart';
 import 'ai_agents_page.dart';
+import 'ai_automation_page.dart';
+import 'ai_command_center_2_page.dart';
 import 'ai_memory_page.dart';
 import 'ai_proactive_assistant_page.dart';
 import 'ai_real_world_actions_page.dart';
-import 'ai_agent_marketplace_page.dart';
-import 'ai_agent_trust_page.dart';
-import 'ai_agent_platform_page.dart';
-import 'merchant_operations_page.dart';
-import 'business_crm_page.dart';
-import 'marketing_growth_page.dart';
 import 'business_ads_page.dart';
-import 'creator_brand_partnerships_page.dart';
-import 'creator_memberships_page.dart';
-import 'global_creator_community_page.dart';
-import 'community_events_page.dart';
-import 'creator_events_commerce_page.dart';
-import 'digital_products_page.dart';
-import 'learning_courses_page.dart';
+import 'business_crm_page.dart';
 import 'career_coach_page.dart';
+import 'command_center_page.dart';
+import 'communications_page.dart';
+import 'community_events_page.dart';
+import 'connections_page.dart';
+import 'creator_brand_partnerships_page.dart';
+import 'creator_discovery_page.dart';
+import 'creator_events_commerce_page.dart';
+import 'creator_memberships_page.dart';
+import 'creator_profile_page.dart';
+import 'creator_studio_page.dart';
+import 'data_governance_page.dart';
+import 'device_trust_security_page.dart';
+import 'digital_products_page.dart';
+import 'fraud_risk_security_page.dart';
 import 'freelancer_marketplace_page.dart';
-import 'professional_network_page.dart';
+import 'fx_commerce_page.dart';
+import 'global_creator_community_page.dart';
+import 'global_identity_verification_page.dart';
+import 'global_payments_page.dart';
 import 'global_services_marketplace_page.dart';
+import 'learning_courses_page.dart';
+import 'marketing_growth_page.dart';
+import 'merchant_operations_page.dart';
+import 'mfa_passkey_security_page.dart';
+import 'monetization_page.dart';
+import 'notifications_page.dart';
+import 'personalization_page.dart';
+import 'platform_governance_page.dart';
+import 'privacy_center_page.dart';
+import 'professional_booking_page.dart';
+import 'professional_network_page.dart';
 import 'professional_payments_disputes_page.dart';
 import 'professional_reputation_page.dart';
-import 'professional_booking_page.dart';
-import 'global_identity_verification_page.dart';
-import 'platform_governance_page.dart';
-import 'fraud_risk_security_page.dart';
-import 'device_trust_security_page.dart';
-import 'mfa_passkey_security_page.dart';
-import 'privacy_center_page.dart';
-import 'data_governance_page.dart';
-import 'age_assurance_family_safety_page.dart';
-import 'teen_wellbeing_page.dart';
 import 'realtime_infrastructure_page.dart';
-import 'integration_hub_page.dart';
-import 'core_flow_audit_page.dart';
-
+import 'safety_center_page.dart';
+import 'teen_wellbeing_page.dart';
 class IdentityProfilePage extends StatefulWidget {
   const IdentityProfilePage({super.key});
   @override
@@ -129,7 +125,7 @@ class _IdentityProfilePageState extends State<IdentityProfilePage> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(26),
         gradient: const LinearGradient(colors: [Color(0xFF16251F), Color(0xFF111720)]),
-        border: Border.all(color: const Color(0xFF38D9A9).withOpacity(.15)),
+        border: Border.all(color: const Color(0xFF38D9A9).withValues(alpha: .15)),
       ),
       child: Column(children: [
         Row(children: [
@@ -149,7 +145,7 @@ class _IdentityProfilePageState extends State<IdentityProfilePage> {
         Text(bio.text.isEmpty ? 'Tell people what you create, sell, teach or do.' : bio.text, style: const TextStyle(color: Colors.white70)),
         const SizedBox(height: 14),
         Row(children: [
-          Expanded(child: Text('Profile strength', style: TextStyle(fontWeight: FontWeight.w800, color: Colors.white.withOpacity(.9)))),
+          Expanded(child: Text('Profile strength', style: TextStyle(fontWeight: FontWeight.w800, color: Colors.white.withValues(alpha: .9)))),
           Text('$completeness%', style: const TextStyle(fontWeight: FontWeight.w900)),
         ]),
         const SizedBox(height: 8),
@@ -213,61 +209,62 @@ class _IdentityProfilePageState extends State<IdentityProfilePage> {
     child: Card(
       color: const Color(0xFF111720),
       child: Column(children: [
-        ListTile(leading: const Icon(Icons.people_alt_outlined), title: const Text('Connections'), subtitle: const Text('Followers, following and people discovery'), onTap: () => _open(const ConnectionsPage())),
-        ListTile(leading: const Icon(Icons.explore_outlined), title: const Text('Discover creators'), subtitle: const Text('Find creators by topic, audience and category'), onTap: () => _open(const CreatorDiscoveryPage())),
-        ListTile(leading: const Icon(Icons.notifications_none_outlined), title: const Text('Notifications'), subtitle: const Text('Activity and notification preferences'), onTap: () => _open(const NotificationsPage())),
-        ListTile(leading: const Icon(Icons.auto_awesome_outlined), title: const Text('Notification Intelligence 2.0'), subtitle: const Text('Realtime events, personalized priority and digests'), onTap: () => _open(const NotificationIntelligencePage())),
-        ListTile(leading: const Icon(Icons.forum_outlined), title: const Text('Communities & chats'), subtitle: const Text('Conversations and communities'), onTap: () => _open(const CommunicationsPage())),
+        ListTile(leading: const Icon(Icons.people_alt_outlined), title: const Text('Connections'), subtitle: const Text('Followers, following and people discovery'), onTap: () => _open(ConnectionsPage())),
+        ListTile(leading: const Icon(Icons.explore_outlined), title: const Text('Discover creators'), subtitle: const Text('Find creators by topic, audience and category'), onTap: () => _open(CreatorDiscoveryPage())),
+        ListTile(leading: const Icon(Icons.notifications_none_outlined), title: const Text('Notifications'), subtitle: const Text('Activity and notification preferences'), onTap: () => _open(NotificationsPage())),
+        // TODO: create notification_intelligence_page.dart - commented to fix build
+        // ListTile(leading: const Icon(Icons.auto_awesome_outlined), title: const Text('Notification Intelligence 2.0'), subtitle: const Text('Realtime events, personalized priority and digests'), onTap: () => _open(NotificationIntelligencePage())),
+        ListTile(leading: const Icon(Icons.forum_outlined), title: const Text('Communities & chats'), subtitle: const Text('Conversations and communities'), onTap: () => _open(CommunicationsPage())),
         ListTile(leading: const Icon(Icons.storefront_outlined), title: const Text('Business identity'), subtitle: const Text('Storefront, orders and business analytics'), onTap: () => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Business dashboard is available from your business workspace.')))),
-        ListTile(leading: const Icon(Icons.settings_suggest_outlined), title: const Text('Merchant Operations 2.0'), subtitle: const Text('Inventory, fulfillment, returns and team workflows'), onTap: () => _open(const MerchantOperationsPage())),
-        ListTile(leading: const Icon(Icons.insights_outlined), title: const Text('Business CRM & Customer Intelligence 2.0'), subtitle: const Text('Customer 360, segments, retention signals and outreach workflows'), onTap: () => _open(const BusinessCrmPage())),
-        ListTile(leading: const Icon(Icons.campaign_outlined), title: const Text('Marketing & Growth Intelligence 2.0'), subtitle: const Text('Campaigns, audiences, attribution and growth workflows'), onTap: () => _open(const MarketingGrowthPage())),
-        ListTile(leading: const Icon(Icons.ads_click_outlined), title: const Text('Business Ads Platform 2.0'), subtitle: const Text('Campaigns, placements, audiences, budgets and ad analytics'), onTap: () => _open(const BusinessAdsPage())),
-        ListTile(leading: const Icon(Icons.handshake_outlined), title: const Text('Creator Brand Partnerships 2.0'), subtitle: const Text('Sponsored content, proposals, disclosures and brand workflows'), onTap: () => _open(const CreatorBrandPartnershipsPage())),
-        ListTile(leading: const Icon(Icons.workspace_premium_outlined), title: const Text('Creator Memberships 2.0'), subtitle: const Text('Premium plans, fan perks, memberships and creator earnings'), onTap: () => _open(const CreatorMembershipsPage())),
-        ListTile(leading: const Icon(Icons.diversity_3_outlined), title: const Text('Global Creator & Community 1.0'), subtitle: const Text('Communities, creator hubs and global audience spaces'), onTap: () => _open(const GlobalCreatorCommunityPage())),
-        ListTile(leading: const Icon(Icons.event_available_outlined), title: const Text('Community Events & LIVE 2.0'), subtitle: const Text('Events, LIVE groups and creator fan experiences'), onTap: () => _open(const CommunityEventsPage())),
-        ListTile(leading: const Icon(Icons.confirmation_num_outlined), title: const Text('Creator Events & Fan Commerce 2.0'), subtitle: const Text('Ticketing, fan shop, bundles and creator event commerce'), onTap: () => _open(const CreatorEventsCommercePage())),
-        ListTile(leading: const Icon(Icons.file_download_outlined), title: const Text('Digital Products & Downloads 2.0'), subtitle: const Text('Courses, templates, ebooks, presets and verified creator downloads'), onTap: () => _open(const DigitalProductsPage())),
-        ListTile(leading: const Icon(Icons.school_outlined), title: const Text('Courses & Certification 2.0'), subtitle: const Text('Structured learning, progress tracking and certificates'), onTap: () => _open(const LearningCoursesPage())),
-        ListTile(leading: const Icon(Icons.work_outline), title: const Text('AI Career Coach & CV Assistant 2.0'), subtitle: const Text('Career fit, CV tailoring and job application preparation'), onTap: () => _open(const CareerCoachPage())),
-        ListTile(leading: const Icon(Icons.workspaces_outline), title: const Text('Professional Profiles & Freelancer Marketplace 2.0'), subtitle: const Text('Portfolios, proof of work and proposal preparation'), onTap: () => _open(const FreelancerMarketplacePage())),
-        ListTile(leading: const Icon(Icons.groups_2_outlined), title: const Text('Professional Network 2.0'), subtitle: const Text('Networking, professional communities and opportunity discovery'), onTap: () => _open(const ProfessionalNetworkPage())),
-        ListTile(leading: const Icon(Icons.handyman_outlined), title: const Text('Professional Services Marketplace 1.0'), subtitle: const Text('Hire verified professionals and offer services globally'), onTap: () => _open(const GlobalServicesMarketplacePage())),
-        ListTile(leading: const Icon(Icons.event_available_outlined), title: const Text('Professional Booking & Contracts 2.0'), subtitle: const Text('Schedule services, request contracts and manage booking status'), onTap: () => _open(const ProfessionalBookingPage())),
-        ListTile(leading: const Icon(Icons.payments_outlined), title: const Text('Professional Payments & Disputes 2.0'), subtitle: const Text('Escrow requests, payout release and dispute workflows'), onTap: () => _open(const ProfessionalPaymentsDisputesPage())),
-        ListTile(leading: const Icon(Icons.public_outlined), title: const Text('Global Payments 3.0'), subtitle: const Text('Country, currency and payment-method preferences'), onTap: () => _open(const GlobalPaymentsPage())),
-        ListTile(leading: const Icon(Icons.currency_exchange_outlined), title: const Text('International Commerce & FX 2.0'), subtitle: const Text('Multi-currency display, local pricing and FX quote requests'), onTap: () => _open(const FxCommercePage())),
-        ListTile(leading: const Icon(Icons.local_shipping_outlined), title: const Text('Global Logistics & Delivery 2.0'), subtitle: const Text('Cross-border shipping, courier assignment and tracking'), onTap: () => _open(const GlobalLogisticsPage())),
+        ListTile(leading: const Icon(Icons.settings_suggest_outlined), title: const Text('Merchant Operations 2.0'), subtitle: const Text('Inventory, fulfillment, returns and team workflows'), onTap: () => _open(MerchantOperationsPage())),
+        ListTile(leading: const Icon(Icons.insights_outlined), title: const Text('Business CRM & Customer Intelligence 2.0'), subtitle: const Text('Customer 360, segments, retention signals and outreach workflows'), onTap: () => _open(BusinessCrmPage())),
+        ListTile(leading: const Icon(Icons.campaign_outlined), title: const Text('Marketing & Growth Intelligence 2.0'), subtitle: const Text('Campaigns, audiences, attribution and growth workflows'), onTap: () => _open(MarketingGrowthPage())),
+        ListTile(leading: const Icon(Icons.ads_click_outlined), title: const Text('Business Ads Platform 2.0'), subtitle: const Text('Campaigns, placements, audiences, budgets and ad analytics'), onTap: () => _open(BusinessAdsPage())),
+        ListTile(leading: const Icon(Icons.handshake_outlined), title: const Text('Creator Brand Partnerships 2.0'), subtitle: const Text('Sponsored content, proposals, disclosures and brand workflows'), onTap: () => _open(CreatorBrandPartnershipsPage())),
+        ListTile(leading: const Icon(Icons.workspace_premium_outlined), title: const Text('Creator Memberships 2.0'), subtitle: const Text('Premium plans, fan perks, memberships and creator earnings'), onTap: () => _open(CreatorMembershipsPage())),
+        ListTile(leading: const Icon(Icons.diversity_3_outlined), title: const Text('Global Creator & Community 1.0'), subtitle: const Text('Communities, creator hubs and global audience spaces'), onTap: () => _open(GlobalCreatorCommunityPage())),
+        ListTile(leading: const Icon(Icons.event_available_outlined), title: const Text('Community Events & LIVE 2.0'), subtitle: const Text('Events, LIVE groups and creator fan experiences'), onTap: () => _open(CommunityEventsPage())),
+        ListTile(leading: const Icon(Icons.confirmation_num_outlined), title: const Text('Creator Events & Fan Commerce 2.0'), subtitle: const Text('Ticketing, fan shop, bundles and creator event commerce'), onTap: () => _open(CreatorEventsCommercePage())),
+        ListTile(leading: const Icon(Icons.file_download_outlined), title: const Text('Digital Products & Downloads 2.0'), subtitle: const Text('Courses, templates, ebooks, presets and verified creator downloads'), onTap: () => _open(DigitalProductsPage())),
+        ListTile(leading: const Icon(Icons.school_outlined), title: const Text('Courses & Certification 2.0'), subtitle: const Text('Structured learning, progress tracking and certificates'), onTap: () => _open(LearningCoursesPage())),
+        ListTile(leading: const Icon(Icons.work_outline), title: const Text('AI Career Coach & CV Assistant 2.0'), subtitle: const Text('Career fit, CV tailoring and job application preparation'), onTap: () => _open(CareerCoachPage())),
+        ListTile(leading: const Icon(Icons.workspaces_outline), title: const Text('Professional Profiles & Freelancer Marketplace 2.0'), subtitle: const Text('Portfolios, proof of work and proposal preparation'), onTap: () => _open(FreelancerMarketplacePage())),
+        ListTile(leading: const Icon(Icons.groups_2_outlined), title: const Text('Professional Network 2.0'), subtitle: const Text('Networking, professional communities and opportunity discovery'), onTap: () => _open(ProfessionalNetworkPage())),
+        ListTile(leading: const Icon(Icons.handyman_outlined), title: const Text('Professional Services Marketplace 1.0'), subtitle: const Text('Hire verified professionals and offer services globally'), onTap: () => _open(GlobalServicesMarketplacePage())),
+        ListTile(leading: const Icon(Icons.event_available_outlined), title: const Text('Professional Booking & Contracts 2.0'), subtitle: const Text('Schedule services, request contracts and manage booking status'), onTap: () => _open(ProfessionalBookingPage())),
+        ListTile(leading: const Icon(Icons.payments_outlined), title: const Text('Professional Payments & Disputes 2.0'), subtitle: const Text('Escrow requests, payout release and dispute workflows'), onTap: () => _open(ProfessionalPaymentsDisputesPage())),
+        ListTile(leading: const Icon(Icons.public_outlined), title: const Text('Global Payments 3.0'), subtitle: const Text('Country, currency and payment-method preferences'), onTap: () => _open(GlobalPaymentsPage())),
+        ListTile(leading: const Icon(Icons.currency_exchange_outlined), title: const Text('International Commerce & FX 2.0'), subtitle: const Text('Multi-currency display, local pricing and FX quote requests'), onTap: () => _open(FxCommercePage())),
+        // TODO: create global_logistics_page.dart
+        // ListTile(leading: const Icon(Icons.local_shipping_outlined), title: const Text('Global Logistics & Delivery 2.0'), subtitle: const Text('Cross-border shipping, courier assignment and tracking'), onTap: () => _open(GlobalLogisticsPage())),
         if (uid.isNotEmpty) ListTile(leading: const Icon(Icons.auto_awesome_outlined), title: const Text('Creator profile'), subtitle: const Text('Portfolio, audience and published content'), onTap: () => _open(CreatorProfilePage(creatorId: uid))),
-        ListTile(leading: const Icon(Icons.verified_user_outlined), title: const Text('Global Identity Verification 2.0'), subtitle: const Text('Personal, professional and business identity trust workflow'), onTap: () => _open(const GlobalIdentityVerificationPage())),
-        ListTile(leading: const Icon(Icons.gpp_good_outlined), title: const Text('Fraud Prevention & Security 2.0'), subtitle: const Text('Risk monitoring, transaction reports and account security review'), onTap: () => _open(const FraudRiskSecurityPage())),
-        ListTile(leading: const Icon(Icons.phonelink_lock_outlined), title: const Text('Device Trust & Account Security 2.0'), subtitle: const Text('Trusted devices, session protection and recovery review'), onTap: () => _open(const DeviceTrustSecurityPage())),
-        ListTile(leading: const Icon(Icons.fingerprint_outlined), title: const Text('Passkeys & MFA 2.0'), subtitle: const Text('High-security login and recovery protection'), onTap: () => _open(const MfaPasskeySecurityPage())),
-        ListTile(leading: const Icon(Icons.privacy_tip_outlined), title: const Text('Privacy Center 2.0'), subtitle: const Text('Data controls, export, deletion and transparency requests'), onTap: () => _open(const PrivacyCenterPage())),
-        ListTile(leading: const Icon(Icons.policy_outlined), title: const Text('Data Governance & Consent 2.0'), subtitle: const Text('Regional consent, governance and compliance review'), onTap: () => _open(const DataGovernancePage())),
-        ListTile(leading: const Icon(Icons.admin_panel_settings_outlined), title: const Text('Platform Governance & Safety 1.0'), subtitle: const Text('Global moderation, reports, appeals and enforcement workflows'), onTap: () => _open(const PlatformGovernancePage())),
-        ListTile(leading: const Icon(Icons.auto_awesome_moderation_outlined), title: const Text('AI Safety & Abuse Prevention 2.0'), subtitle: const Text('Automated safety signals and review requests'), onTap: () => _open(const AdvancedModerationPage())),
-        ListTile(leading: const Icon(Icons.family_restroom_outlined), title: const Text('Age & Family Safety 2.0'), subtitle: const Text('Age assurance, teen safety and family-protection controls'), onTap: () => _open(const AgeAssuranceFamilySafetyPage())),
-        ListTile(leading: const Icon(Icons.health_and_safety_outlined), title: const Text('Teen Wellbeing & Safer Recommendations 2.0'), subtitle: const Text('Break reminders, quieter notifications and safer discovery controls'), onTap: () => _open(const TeenWellbeingPage())),
-        ListTile(leading: const Icon(Icons.hub_outlined), title: const Text('Realtime Infrastructure 2.0'), subtitle: const Text('Presence, typing, heartbeat and global realtime architecture'), onTap: () => _open(const RealtimeInfrastructurePage())),
+        ListTile(leading: const Icon(Icons.verified_user_outlined), title: const Text('Global Identity Verification 2.0'), subtitle: const Text('Personal, professional and business identity trust workflow'), onTap: () => _open(GlobalIdentityVerificationPage())),
+        ListTile(leading: const Icon(Icons.gpp_good_outlined), title: const Text('Fraud Prevention & Security 2.0'), subtitle: const Text('Risk monitoring, transaction reports and account security review'), onTap: () => _open(FraudRiskSecurityPage())),
+        ListTile(leading: const Icon(Icons.phonelink_lock_outlined), title: const Text('Device Trust & Account Security 2.0'), subtitle: const Text('Trusted devices, session protection and recovery review'), onTap: () => _open(DeviceTrustSecurityPage())),
+        ListTile(leading: const Icon(Icons.fingerprint_outlined), title: const Text('Passkeys & MFA 2.0'), subtitle: const Text('High-security login and recovery protection'), onTap: () => _open(MfaPasskeySecurityPage())),
+        ListTile(leading: const Icon(Icons.privacy_tip_outlined), title: const Text('Privacy Center 2.0'), subtitle: const Text('Data controls, export, deletion and transparency requests'), onTap: () => _open(PrivacyCenterPage())),
+        ListTile(leading: const Icon(Icons.policy_outlined), title: const Text('Data Governance & Consent 2.0'), subtitle: const Text('Regional consent, governance and compliance review'), onTap: () => _open(DataGovernancePage())),
+        ListTile(leading: const Icon(Icons.admin_panel_settings_outlined), title: const Text('Platform Governance & Safety 1.0'), subtitle: const Text('Global moderation, reports, appeals and enforcement workflows'), onTap: () => _open(PlatformGovernancePage())),
+        // FIXED ICON: shield_outlined instead of auto_awesome_moderation_outlined
+        ListTile(leading: const Icon(Icons.shield_outlined), title: const Text('AI Safety & Abuse Prevention 2.0'), subtitle: const Text('Automated safety signals and review requests'), onTap: () => _open(AdvancedModerationPage())),
+        ListTile(leading: const Icon(Icons.family_restroom_outlined), title: const Text('Age & Family Safety 2.0'), subtitle: const Text('Age assurance, teen safety and family-protection controls'), onTap: () => _open(AgeAssuranceFamilySafetyPage())),
+        ListTile(leading: const Icon(Icons.health_and_safety_outlined), title: const Text('Teen Wellbeing & Safer Recommendations 2.0'), subtitle: const Text('Break reminders, quieter notifications and safer discovery controls'), onTap: () => _open(TeenWellbeingPage())),
+        ListTile(leading: const Icon(Icons.hub_outlined), title: const Text('Realtime Infrastructure 2.0'), subtitle: const Text('Presence, typing, heartbeat and global realtime architecture'), onTap: () => _open(RealtimeInfrastructurePage())),
         ListTile(leading: const Icon(Icons.badge_outlined), title: const Text('Professional identity'), subtitle: const Text('Services, reputation and portfolio'), onTap: () { if (uid.isNotEmpty) _open(ProfessionalReputationPage(providerId: uid, providerName: displayName.text.isEmpty ? 'Professional' : displayName.text)); }),
-        ListTile(leading: const Icon(Icons.auto_awesome_outlined), title: const Text('SwipeBuy AI 2.0'), subtitle: const Text('Text, voice and Vision AI command center'), onTap: () => _open(const AiCommandCenter2Page())),
-        ListTile(leading: const Icon(Icons.schedule_send_outlined), title: const Text('AI Automation 2.0'), subtitle: const Text('Save recurring routines and smart tasks'), onTap: () => _open(const AiAutomationPage())),
-        ListTile(leading: const Icon(Icons.smart_toy_outlined), title: const Text('AI Agents 2.0'), subtitle: const Text('Turn goals into safe multi-step task plans'), onTap: () => _open(const AiAgentsPage())),
-        ListTile(leading: const Icon(Icons.apps_outlined), title: const Text('AI Agent Marketplace 2.0'), subtitle: const Text('Discover and install reusable AI task agents'), onTap: () => _open(const AiAgentMarketplacePage())),
-        ListTile(leading: const Icon(Icons.verified_user_outlined), title: const Text('AI Agent Trust & Safety 2.0'), subtitle: const Text('Reviews, reports and personal trust signals'), onTap: () => _open(const AiAgentTrustPage())),
-        ListTile(leading: const Icon(Icons.hub_outlined), title: const Text('Global AI Agent Platform 1.0'), subtitle: const Text('Unified agent workspace, marketplace, trust and creator economy'), onTap: () => _open(const AiAgentPlatformPage())),
-        ListTile(leading: const Icon(Icons.psychology_outlined), title: const Text('AI Memory 2.0'), subtitle: const Text('Control preferences and context used for personalization'), onTap: () => _open(const AiMemoryPage())),
-        ListTile(leading: const Icon(Icons.notifications_active_outlined), title: const Text('AI Proactive Assistant 3.0'), subtitle: const Text('Smart alerts for prices, jobs, property, deals and content'), onTap: () => _open(const AiProactiveAssistantPage())),
-        ListTile(leading: const Icon(Icons.bolt_outlined), title: const Text('AI Real-World Actions 3.0'), subtitle: const Text('Prepare checkout, bookings, applications and safe handoffs'), onTap: () => _open(const AiRealWorldActionsPage())),
-        ListTile(leading: const Icon(Icons.tune_outlined), title: const Text('Personalization'), subtitle: const Text('Interests, location and your For You feed'), onTap: () => _open(const PersonalizationPage())),
+        ListTile(leading: const Icon(Icons.auto_awesome_outlined), title: const Text('SwipeBuy AI 2.0'), subtitle: const Text('Text, voice and Vision AI command center'), onTap: () => _open(AiCommandCenter2Page())),
+        ListTile(leading: const Icon(Icons.schedule_send_outlined), title: const Text('AI Automation 2.0'), subtitle: const Text('Save recurring routines and smart tasks'), onTap: () => _open(AiAutomationPage())),
+        ListTile(leading: const Icon(Icons.smart_toy_outlined), title: const Text('AI Agents 2.0'), subtitle: const Text('Turn goals into safe multi-step task plans'), onTap: () => _open(AiAgentsPage())),
+        ListTile(leading: const Icon(Icons.apps_outlined), title: const Text('AI Agent Marketplace 2.0'), subtitle: const Text('Discover and install reusable AI task agents'), onTap: () => _open(AiAgentMarketplacePage())),
+        ListTile(leading: const Icon(Icons.verified_user_outlined), title: const Text('AI Agent Trust & Safety 2.0'), subtitle: const Text('Reviews, reports and personal trust signals'), onTap: () => _open(AiAgentTrustPage())),
+        ListTile(leading: const Icon(Icons.hub_outlined), title: const Text('Global AI Agent Platform 1.0'), subtitle: const Text('Unified agent workspace, marketplace, trust and creator economy'), onTap: () => _open(AiAgentPlatformPage())),
+        ListTile(leading: const Icon(Icons.psychology_outlined), title: const Text('AI Memory 2.0'), subtitle: const Text('Control preferences and context used for personalization'), onTap: () => _open(AiMemoryPage())),
+        ListTile(leading: const Icon(Icons.notifications_active_outlined), title: const Text('AI Proactive Assistant 3.0'), subtitle: const Text('Smart alerts for prices, jobs, property, deals and content'), onTap: () => _open(AiProactiveAssistantPage())),
+        ListTile(leading: const Icon(Icons.bolt_outlined), title: const Text('AI Real-World Actions 3.0'), subtitle: const Text('Prepare checkout, bookings, applications and safe handoffs'), onTap: () => _open(AiRealWorldActionsPage())),
+        ListTile(leading: const Icon(Icons.tune_outlined), title: const Text('Personalization'), subtitle: const Text('Interests, location and your For You feed'), onTap: () => _open(PersonalizationPage())),
         ListTile(leading: const Icon(Icons.logout), title: const Text('Sign out'), onTap: AuthService.signOut),
       ]),
     ),
-  );
-
-  Future<void> _editProfile() async {
+  );Future<void> _editProfile() async {
     final name = TextEditingController(text: displayName.text);
     final handle = TextEditingController(text: username.text);
     final about = TextEditingController(text: bio.text);

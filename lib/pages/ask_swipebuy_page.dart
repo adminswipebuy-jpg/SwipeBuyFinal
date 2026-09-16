@@ -124,7 +124,7 @@ class _AskSwipeBuyPageState extends State<AskSwipeBuyPage> {
               margin: const EdgeInsets.only(bottom: 10),
               child: ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: const Color(0xFF10B981).withOpacity(.18),
+                  backgroundColor: const Color(0xFF10B981).withValues(alpha: .18),
                   backgroundImage: result.imageUrl != null ? NetworkImage(result.imageUrl!) : null,
                   child: result.imageUrl == null ? const Icon(Icons.auto_awesome) : null,
                 ),

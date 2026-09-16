@@ -4,11 +4,8 @@ import 'package:flutter/foundation.dart';
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'SwipeBuy Web Firebase configuration has not been generated yet. '
-        'Run `flutterfire configure` and select Web.',
-      );
-    }
+        return android;
+      }
 
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:

@@ -160,7 +160,7 @@ class _AiAssistantWorkspacePageState extends State<AiAssistantWorkspacePage> {
                 margin: const EdgeInsets.only(bottom: 10),
                 child: ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: const Color(0xFF10B981).withOpacity(.18),
+                    backgroundColor: const Color(0xFF10B981).withValues(alpha: .18),
                     backgroundImage: r.imageUrl != null ? NetworkImage(r.imageUrl!) : null,
                     child: r.imageUrl == null ? const Icon(Icons.auto_awesome) : null,
                   ),
@@ -210,7 +210,7 @@ class _AiAssistantWorkspacePageState extends State<AiAssistantWorkspacePage> {
 
   Widget _pill(String text, IconData icon) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 7),
-    decoration: BoxDecoration(color: Colors.white.withOpacity(.06), borderRadius: BorderRadius.circular(999), border: Border.all(color: Colors.white10)),
+    decoration: BoxDecoration(color: Colors.white.withValues(alpha: .06), borderRadius: BorderRadius.circular(999), border: Border.all(color: Colors.white10)),
     child: Row(mainAxisSize: MainAxisSize.min, children: [Icon(icon, size: 16), const SizedBox(width: 6), Text(text, style: const TextStyle(fontWeight: FontWeight.w700))]),
   );
 }

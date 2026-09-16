@@ -72,7 +72,7 @@ class _ProfessionalPaymentsDisputesPageState extends State<ProfessionalPaymentsD
     var reason = 'Work quality';
     await showDialog<void>(context: context, builder: (ctx) => StatefulBuilder(builder: (ctx, setLocal) => AlertDialog(
       title: const Text('Open dispute'),
-      content: Column(mainAxisSize: MainAxisSize.min, children: [DropdownButtonFormField<String>(value: reason, items: const ['Work quality', 'Missed milestone', 'No-show', 'Fraud concern', 'Other'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => reason = v ?? reason)), const SizedBox(height: 10), TextField(controller: detail, maxLines: 4, decoration: const InputDecoration(labelText: 'Details'))]),
+      content: Column(mainAxisSize: MainAxisSize.min, children: [DropdownButtonFormField<String>(initialValue: reason, items: const ['Work quality', 'Missed milestone', 'No-show', 'Fraud concern', 'Other'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => reason = v ?? reason)), const SizedBox(height: 10), TextField(controller: detail, maxLines: 4, decoration: const InputDecoration(labelText: 'Details'))]),
       actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')), FilledButton(onPressed: () async { await service.openDispute(bookingId: booking.text.trim(), reason: reason, details: detail.text); if (ctx.mounted) Navigator.pop(ctx); if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Dispute opened for review.'))); }, child: const Text('Submit'))],
     )));
     detail.dispose();

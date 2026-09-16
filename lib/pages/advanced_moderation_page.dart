@@ -47,18 +47,18 @@ class _AdvancedModerationPageState extends State<AdvancedModerationPage> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(title: const Text('AI Safety & Abuse Prevention 2.0')),
     body: ListView(padding: const EdgeInsets.all(16), children: [
-      const Card(child: ListTile(leading: Icon(Icons.auto_awesome_moderation_outlined), title: Text('Automated safety signals'), subtitle: Text('Flag spam, scams, harassment, harmful content or suspicious behavior for trusted moderation systems.'))),
+      const Card(child: ListTile(leading: Icon(Icons.shield_outlined), title: Text('Automated safety signals'), subtitle: Text('Flag spam, scams, harassment, harmful content or suspicious behavior for trusted moderation systems.'))),
       const SizedBox(height: 12),
       Card(child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Create safety signal', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
-        DropdownButtonFormField<String>(value: targetType, items: const [
+        DropdownButtonFormField<String>(initialValue: targetType, items: const [
           DropdownMenuItem(value: 'content', child: Text('Content')),
           DropdownMenuItem(value: 'account', child: Text('Account')),
           DropdownMenuItem(value: 'seller', child: Text('Seller')),
           DropdownMenuItem(value: 'professional', child: Text('Professional')),
           DropdownMenuItem(value: 'agent', child: Text('AI agent')),
         ], onChanged: busy ? null : (v) => setState(() => targetType = v ?? 'content'), decoration: const InputDecoration(labelText: 'Target type')),
-        DropdownButtonFormField<String>(value: signal, items: const [
+        DropdownButtonFormField<String>(initialValue: signal, items: const [
           DropdownMenuItem(value: 'spam', child: Text('Spam')),
           DropdownMenuItem(value: 'scam', child: Text('Scam / fraud')),
           DropdownMenuItem(value: 'harassment', child: Text('Harassment')),

@@ -88,7 +88,7 @@ class _MonetizationPageState extends State<MonetizationPage> {
         content: Column(mainAxisSize: MainAxisSize.min, children: [
           TextField(controller: name, decoration: const InputDecoration(labelText: 'Campaign name')),
           const SizedBox(height: 12),
-          DropdownButtonFormField<String>(value: objective, items: const ['Reach', 'Engagement', 'Traffic', 'Sales'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => objective = v ?? objective), decoration: const InputDecoration(labelText: 'Objective')),
+          DropdownButtonFormField<String>(initialValue: objective, items: const ['Reach', 'Engagement', 'Traffic', 'Sales'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => objective = v ?? objective), decoration: const InputDecoration(labelText: 'Objective')),
           const SizedBox(height: 12),
           TextField(controller: budget, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Daily budget (GHS)')),
         ]),
@@ -112,7 +112,7 @@ class _MonetizationPageState extends State<MonetizationPage> {
         content: Column(mainAxisSize: MainAxisSize.min, children: [
           TextField(controller: amount, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Amount (GHS)')),
           const SizedBox(height: 12),
-          DropdownButtonFormField<String>(value: method, items: const ['Bank / Mobile Money', 'PayPal'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => method = v ?? method), decoration: const InputDecoration(labelText: 'Payout method')),
+          DropdownButtonFormField<String>(initialValue: method, items: const ['Bank / Mobile Money', 'PayPal'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => method = v ?? method), decoration: const InputDecoration(labelText: 'Payout method')),
         ]),
         actions: [TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')), FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Request'))],
       )),

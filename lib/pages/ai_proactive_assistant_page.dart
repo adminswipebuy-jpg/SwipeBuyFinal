@@ -45,7 +45,7 @@ class _AiProactiveAssistantPageState extends State<AiProactiveAssistantPage> {
         const SizedBox(height: 14),
         TextField(controller: _title, decoration: const InputDecoration(labelText: 'Alert name', hintText: 'e.g. Find a better price for running shoes')),
         const SizedBox(height: 10),
-        DropdownButtonFormField<String>(value: _type, items: const [
+        DropdownButtonFormField<String>(initialValue: _type, items: const [
           DropdownMenuItem(value: 'price_watch', child: Text('Price watch')),
           DropdownMenuItem(value: 'job_match', child: Text('Job match')),
           DropdownMenuItem(value: 'property_match', child: Text('Property match')),
@@ -58,7 +58,7 @@ class _AiProactiveAssistantPageState extends State<AiProactiveAssistantPage> {
         const SizedBox(height: 10),
         TextField(controller: _category, decoration: const InputDecoration(labelText: 'Category (optional)', hintText: 'Electronics, Jobs, Travel...')),
         const SizedBox(height: 10),
-        DropdownButtonFormField<String>(value: _cadence, items: const [
+        DropdownButtonFormField<String>(initialValue: _cadence, items: const [
           DropdownMenuItem(value: 'realtime', child: Text('As soon as available')),
           DropdownMenuItem(value: 'daily', child: Text('Daily')),
           DropdownMenuItem(value: 'weekly', child: Text('Weekly')),
@@ -82,7 +82,11 @@ class _AiProactiveAssistantPageState extends State<AiProactiveAssistantPage> {
             subtitle: Text('${d['type'] ?? 'alert'} • ${d['cadence'] ?? 'daily'}${(d['query']?.toString().isNotEmpty ?? false) ? '\n${d['query']}' : ''}'),
             isThreeLine: true,
             trailing: PopupMenuButton<String>(onSelected: (value) async {
-              if (value == 'delete') await _service.deleteAlert(doc.id); else await _service.setStatus(doc.id, value);
+              if (value == 'delete') {
+                await _service.deleteAlert(doc.id);
+              } else {
+                await _service.setStatus(doc.id, value);
+              }
             }, itemBuilder: (_) => [
               if (status == 'active') const PopupMenuItem(value: 'paused', child: Text('Pause')) else const PopupMenuItem(value: 'active', child: Text('Resume')),
               const PopupMenuItem(value: 'delete', child: Text('Delete')),
@@ -97,5 +101,5 @@ class _AiProactiveAssistantPageState extends State<AiProactiveAssistantPage> {
     Row(children: [CircleAvatar(radius: 23, child: Icon(Icons.notifications_active_outlined)), SizedBox(width: 12), Expanded(child: Text('Proactive SwipeBuy AI', style: TextStyle(fontSize: 23, fontWeight: FontWeight.w900)))]),
     SizedBox(height: 10),
     Text('Move from “ask when I need it” to “tell me when it matters”. Production triggers should be verified by trusted backend services before a user is notified.', style: TextStyle(color: Colors.white70, height: 1.4)),
-  ]);
+  ]));
 }

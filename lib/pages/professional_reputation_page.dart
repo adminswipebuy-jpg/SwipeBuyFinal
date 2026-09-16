@@ -88,7 +88,7 @@ class _ProfessionalReputationPageState extends State<ProfessionalReputationPage>
   AlertDialog _reviewDialog() => AlertDialog(
     title: const Text('Review professional'),
     content: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
-      DropdownButtonFormField<int>(value: rating, decoration: const InputDecoration(labelText: 'Rating'), items: [5,4,3,2,1].map((v) => DropdownMenuItem(value: v, child: Text('$v / 5'))).toList(), onChanged: (v) => setState(() => rating = v ?? 5)),
+      DropdownButtonFormField<int>(initialValue: rating, decoration: const InputDecoration(labelText: 'Rating'), items: [5,4,3,2,1].map((v) => DropdownMenuItem(value: v, child: Text('$v / 5'))).toList(), onChanged: (v) => setState(() => rating = v ?? 5)),
       TextField(controller: orderId, decoration: const InputDecoration(labelText: 'Completed job/order ID')),
       TextField(controller: review, maxLines: 4, decoration: const InputDecoration(labelText: 'Your review')),
     ])),

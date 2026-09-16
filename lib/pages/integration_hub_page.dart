@@ -85,7 +85,7 @@ class IntegrationHubPage extends StatelessWidget {
           ]),
           _section(context, 'AI & user experience', [
             _HubItem('AI command center', 'AI discovery, voice, vision and actions', Icons.auto_awesome_outlined, const AiCommandCenter2Page()),
-            _HubItem('Notifications', 'Push, realtime and notification controls', Icons.notifications_none_outlined, const NotificationsPage()),
+            _HubItem('Notifications', 'Push, realtime and notification controls', Icons.notifications_none_outlined, NotificationsPage()),
           ]),
           _section(context, 'Trust & platform', [
             _HubItem('Safety center', 'Reports, abuse prevention and safety tools', Icons.shield_outlined, const SafetyCenterPage()),

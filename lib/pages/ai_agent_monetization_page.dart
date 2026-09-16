@@ -48,7 +48,9 @@ class _AiAgentMonetizationPageState extends State<AiAgentMonetizationPage> {
       if (snap.connectionState == ConnectionState.waiting) return const Center(child: Padding(padding: EdgeInsets.all(24), child: CircularProgressIndicator()));
       final docs = snap.data?.docs ?? const [];
       double total = 0;
-      for (final d in docs) total += (d.data()['netAmount'] as num?)?.toDouble() ?? 0;
+      for (final d in docs) {
+        total += (d.data()['netAmount'] as num?)?.toDouble() ?? 0;
+      }
       return Card(child: Padding(padding: const EdgeInsets.all(18), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Net earnings', style: TextStyle(color: Colors.white60)), const SizedBox(height: 5),
         Text('GH₵ ${total.toStringAsFixed(2)}', style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900)),
@@ -72,7 +74,7 @@ class _AiAgentMonetizationPageState extends State<AiAgentMonetizationPage> {
 
   Future<void> _showPayoutDialog() async {
     final amount = TextEditingController(text: '50'); String method = 'Mobile Money';
-    final ok = await showDialog<bool>(context: context, builder: (context) => StatefulBuilder(builder: (context, setLocal) => AlertDialog(title: const Text('Payout request'), content: Column(mainAxisSize: MainAxisSize.min, children: [TextField(controller: amount, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Amount (GH₵)')), const SizedBox(height: 10), DropdownButtonFormField<String>(value: method, items: const ['Mobile Money', 'Bank transfer'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => method = v ?? method), decoration: const InputDecoration(labelText: 'Method'))]), actions: [TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')), FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Submit'))])));
+    final ok = await showDialog<bool>(context: context, builder: (context) => StatefulBuilder(builder: (context, setLocal) => AlertDialog(title: const Text('Payout request'), content: Column(mainAxisSize: MainAxisSize.min, children: [TextField(controller: amount, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Amount (GH₵)')), const SizedBox(height: 10), DropdownButtonFormField<String>(initialValue: method, items: const ['Mobile Money', 'Bank transfer'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => method = v ?? method), decoration: const InputDecoration(labelText: 'Method'))]), actions: [TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')), FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Submit'))])));
     if (ok != true) return;
     try { await service.submitPayoutRequest(amount: double.tryParse(amount.text) ?? 0, method: method); if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Payout request submitted for backend review.'))); } catch (e) { if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()))); }
   }

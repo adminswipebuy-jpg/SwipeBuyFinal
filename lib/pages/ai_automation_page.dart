@@ -52,10 +52,10 @@ class _AiAutomationPageState extends State<AiAutomationPage> {
       TextField(controller: _instruction, maxLines: 4, decoration: const InputDecoration(labelText: 'What should SwipeBuy do?', hintText: 'Find 5 new remote jobs in Ghana and notify me', filled: true)),
       const SizedBox(height: 10),
       DropdownButtonFormField<String>(
-        value: _schedule,
+        initialValue: _schedule,
         decoration: const InputDecoration(labelText: 'Schedule', filled: true),
-        items: const ['Every day', 'Every week', 'Every month', 'When available'],
-        onChanged: (v) => setState(() => _schedule = v ?? 'Every day'),
+        items: ['Every day', 'Every week', 'Every month', 'When available'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+onChanged: (v) => setState(() => _schedule = v ?? 'Every day'),
       ),
       const SizedBox(height: 12),
       FilledButton.icon(onPressed: _busy ? null : _create, icon: const Icon(Icons.add_task), label: Text(_busy ? 'Saving…' : 'Save automation')),

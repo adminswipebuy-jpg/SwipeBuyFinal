@@ -212,7 +212,7 @@ class _VideoTimelineEditorPageState extends State<VideoTimelineEditorPage> {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 const Text('Audio timeline', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
                 const SizedBox(height: 8),
-                DropdownButtonFormField<String>(value: _audioTrack, decoration: const InputDecoration(labelText: 'Track', filled: true), items: const ['Original sound','Trending Afrobeat','Calm instrumental','Business beat','Original sound + music'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) { setState(() => _audioTrack = v ?? _audioTrack); _record('audio track'); }),
+                DropdownButtonFormField<String>(initialValue: _audioTrack, decoration: const InputDecoration(labelText: 'Track', filled: true), items: const ['Original sound','Trending Afrobeat','Calm instrumental','Business beat','Original sound + music'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) { setState(() => _audioTrack = v ?? _audioTrack); _record('audio track'); }),
                 const SizedBox(height: 8),
                 Text('Original ${(_audioVolume * 100).round()}%'),
                 Slider(value: _audioVolume, onChanged: (v) => setState(() => _audioVolume = v)),

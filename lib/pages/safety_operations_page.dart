@@ -53,7 +53,7 @@ class _SafetyOperationsPageState extends State<SafetyOperationsPage> {
           const Text('Use this space to report urgent platform-safety concerns. High-impact enforcement is handled by authorized backend teams.'),
           const SizedBox(height: 16),
           DropdownButtonFormField<String>(
-            value: _category,
+            initialValue: _category,
             items: const ['Harassment', 'Scam/Fraud', 'Threat', 'Child Safety', 'Account Compromise', 'Other']
                 .map((v) => DropdownMenuItem(value: v, child: Text(v))).toList(),
             onChanged: (v) => setState(() => _category = v ?? _category),
@@ -61,7 +61,7 @@ class _SafetyOperationsPageState extends State<SafetyOperationsPage> {
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
-            value: _severity,
+            initialValue: _severity,
             items: const ['standard', 'high', 'urgent']
                 .map((v) => DropdownMenuItem(value: v, child: Text(v.toUpperCase()))).toList(),
             onChanged: (v) => setState(() => _severity = v ?? _severity),

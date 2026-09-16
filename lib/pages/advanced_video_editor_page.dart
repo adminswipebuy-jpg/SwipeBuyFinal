@@ -130,11 +130,11 @@ class _AdvancedVideoEditorPageState extends State<AdvancedVideoEditorPage> {
             ],
           ]),
           _section('Look & Feel', [
-            DropdownButtonFormField<String>(value: _effect, decoration: const InputDecoration(labelText: 'Effect', filled: true), items: const ['None', 'Warm', 'Cool', 'High contrast', 'Soft glow'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => _effect = v ?? _effect)),
+            DropdownButtonFormField<String>(initialValue: _effect, decoration: const InputDecoration(labelText: 'Effect', filled: true), items: const ['None', 'Warm', 'Cool', 'High contrast', 'Soft glow'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => _effect = v ?? _effect)),
             const SizedBox(height: 12),
-            DropdownButtonFormField<String>(value: _transition, decoration: const InputDecoration(labelText: 'Transition', filled: true), items: const ['Fade', 'Slide', 'Zoom', 'Cut'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => _transition = v ?? _transition)),
+            DropdownButtonFormField<String>(initialValue: _transition, decoration: const InputDecoration(labelText: 'Transition', filled: true), items: const ['Fade', 'Slide', 'Zoom', 'Cut'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => _transition = v ?? _transition)),
             const SizedBox(height: 12),
-            DropdownButtonFormField<String>(value: _cover, decoration: const InputDecoration(labelText: 'Cover frame', filled: true), items: const ['First frame', 'Middle frame', 'Last frame', 'AI suggestion'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => _cover = v ?? _cover)),
+            DropdownButtonFormField<String>(initialValue: _cover, decoration: const InputDecoration(labelText: 'Cover frame', filled: true), items: const ['First frame', 'Middle frame', 'Last frame', 'AI suggestion'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => _cover = v ?? _cover)),
           ]),
           _section('Music & Effects', [
             ListTile(

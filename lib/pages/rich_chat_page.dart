@@ -81,6 +81,6 @@ class _RichChatPageState extends State<RichChatPage> {
   );
 
   Future<void> _react(BuildContext context, String messageId) async {
-    await showModalBottomSheet(context: context, builder: (_) => SafeArea(child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: ['❤️','😂','🔥','👍','😮'].map((e) => IconButton(onPressed: () { Navigator.pop(context); service.react(conversationId: conversationId, messageId: messageId, emoji: e); }, icon: Text(e, style: const TextStyle(fontSize: 26))).toList())));
+    await showModalBottomSheet(context: context, builder: (_) => SafeArea(child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: ['❤️','😂','🔥','👍','😮'].map((e) => IconButton(onPressed: () { Navigator.pop(context); service.react(conversationId: conversationId, messageId: messageId, emoji: e); }, icon: Text(e, style: const TextStyle(fontSize: 26)))).toList())));
   }
 }

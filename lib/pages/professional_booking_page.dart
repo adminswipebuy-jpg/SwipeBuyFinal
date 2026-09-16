@@ -30,7 +30,7 @@ class _ProfessionalBookingPageState extends State<ProfessionalBookingPage> {
         const SizedBox(height: 8),
         ListTile(leading: const Icon(Icons.calendar_today_outlined), title: Text(_format(requested)), trailing: const Icon(Icons.chevron_right), onTap: _pickDateTime),
         const SizedBox(height: 8),
-        DropdownButtonFormField<int>(value: duration, items: const [30,60,90,120].map((m)=>DropdownMenuItem(value:m, child: Text('$m minutes'))).toList(), onChanged:(v)=>setState(()=>duration=v??60), decoration: const InputDecoration(labelText:'Duration')),
+        DropdownButtonFormField<int>(initialValue: duration, items: const [30,60,90,120].map((m)=>DropdownMenuItem(value:m, child: Text('$m minutes'))).toList(), onChanged:(v)=>setState(()=>duration=v??60), decoration: const InputDecoration(labelText:'Duration')),
         const SizedBox(height: 12),
         TextField(controller: note, maxLines: 4, decoration: const InputDecoration(labelText: 'Project / appointment notes', hintText: 'Tell the professional what you need...')),
         const SizedBox(height: 16),

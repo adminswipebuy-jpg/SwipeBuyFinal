@@ -1,68 +1,31 @@
-import 'dart:io';
-import 'services/business_service.dart';
-import 'services/provider_profile_service.dart';
-import 'services/transaction_flow_service.dart';
-import 'services/admin_service.dart';
-import 'services/discovery_service.dart';
-import 'services/search_service.dart';
 import 'services/personalization_service.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'jobs_page.dart';
+import 'create_page.dart';
+import 'listing_details.dart';
 import 'firebase_options.dart';
 import 'services/auth_service.dart';
-import 'services/marketplace_service.dart';
-import 'services/media_service.dart';
-import 'services/order_service.dart';
 import 'pages/notifications_page.dart';
 import 'pages/smart_alerts_page.dart';
 import 'pages/content_feed_page.dart';
-import 'pages/create_content_page.dart';
-import 'pages/creator_studio_page.dart';
 import 'pages/stories_page.dart';
 import 'pages/live_hub_page.dart';
 import 'pages/communications_page.dart';
-import 'pages/safety_center_page.dart';
-import 'pages/notification_preferences_page.dart';
-import 'pages/monetization_page.dart';
 import 'pages/wallet_page.dart';
-import 'pages/advertising_page.dart';
 import 'pages/personalization_page.dart';
-import 'pages/ask_swipebuy_page.dart';
-import 'pages/ai_actions_page.dart';
-import 'pages/multimodal_ai_page.dart';
 import 'pages/local_discovery_page.dart';
 import 'pages/global_map_page.dart';
 import 'pages/identity_profile_page.dart';
-import 'pages/analytics_page.dart';
-import 'pages/content_creation_studio_page.dart';
 import 'pages/marketplace_v2_page.dart';
 import 'pages/seller_commerce_pro_page.dart';
 import 'pages/merchant_operations_page.dart';
-import 'pages/smart_recommendations_page.dart';
-import 'pages/personalization_hub_page.dart';
 import 'pages/global_search_intelligence_page.dart';
-import 'pages/global_logistics_page.dart';
 import 'pages/ai_assistant_workspace_page.dart';
-import 'pages/ai_automation_page.dart';
-import 'pages/ai_agents_page.dart';
-import 'pages/ai_adaptive_personalization_page.dart';
-import 'pages/ai_agent_monetization_page.dart';
-import 'pages/ai_proactive_assistant_page.dart';
 import 'pages/marketing_growth_page.dart';
 import 'pages/creator_brand_partnerships_page.dart';
 import 'pages/professional_collaboration_page.dart';
-import 'pages/global_services_marketplace_page.dart';
-import 'pages/global_identity_verification_page.dart';
-import 'pages/platform_governance_page.dart';
-import 'pages/advanced_moderation_page.dart';
-import 'pages/platform_resilience_page.dart';
-import 'pages/platform_observability_page.dart';
-import 'pages/global_media_delivery_page.dart';
-import 'pages/media_transcoding_page.dart';
-import 'pages/release_readiness_page.dart';
 import 'pages/v15_release_gate_page.dart';
 import 'pages/integration_hub_page.dart';
 import 'pages/core_flow_audit_page.dart';
@@ -264,7 +227,7 @@ class MarketplaceShell extends StatefulWidget {
 
 class _MarketplaceShellState extends State<MarketplaceShell> {
   int index = 0;
-  final pages = const [HomePage(), JobsPage(), CreatePage(), CommunicationsPage(), IdentityProfilePage()];
+  final pages = [HomePage(), JobsPage(), CreatePage(), CommunicationsPage(), IdentityProfilePage()];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -415,7 +378,7 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
           color: const Color(0xFF111822),
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: Colors.white.withOpacity(.06)),
+          border: Border.all(color: Colors.white.withValues(alpha: .06)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -425,7 +388,7 @@ class _HomePageState extends State<HomePage> {
               height: 40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: accent.withOpacity(.14),
+                color: accent.withValues(alpha: .14),
               ),
               child: Icon(icon, color: accent, size: 21),
             ),
@@ -453,7 +416,7 @@ class _HomePageState extends State<HomePage> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(color: const Color(0xFF38D9A9).withOpacity(.14)),
+        border: Border.all(color: const Color(0xFF38D9A9).withValues(alpha: .14)),
       ),
       child: Row(
         children: [
@@ -496,7 +459,7 @@ class _HomePageState extends State<HomePage> {
                 const LogoHeader(),
                 const Spacer(),
                 IconButton(onPressed: () => _open(const UniversalSearchPage()), icon: const Icon(Icons.search_rounded, size: 25)),
-                IconButton(onPressed: () => _open(const NotificationsPage()), icon: const Icon(Icons.notifications_none_rounded, size: 25)),
+                IconButton(onPressed: () => _open(NotificationsPage()), icon: const Icon(Icons.notifications_none_rounded, size: 25)),
                 PopupMenuButton<String>(
                   icon: const Icon(Icons.more_horiz_rounded, size: 25),
                   onSelected: (value) {
@@ -663,7 +626,7 @@ class SwipeListingCard extends StatelessWidget {
           end: Alignment.bottomCenter,
           colors: [
             const Color(0xFF101722),
-            listing.accent.withOpacity(.25),
+            listing.accent.withValues(alpha: .25),
             const Color(0xFF080B10),
           ],
         ),
@@ -688,7 +651,7 @@ class SwipeListingCard extends StatelessWidget {
             left: 18, right: 64, bottom: 18,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
-                CircleAvatar(radius: 18, backgroundColor: listing.accent.withOpacity(.25), child: Icon(listing.icon, color: listing.accent)),
+                CircleAvatar(radius: 18, backgroundColor: listing.accent.withValues(alpha: .25), child: Icon(listing.icon, color: listing.accent)),
                 const SizedBox(width: 9),
                 Expanded(child: Text(listing.seller, style: const TextStyle(fontWeight: FontWeight.w800))),
                 const Icon(Icons.verified, size: 18, color: Color(0xFF38D9A9)),
@@ -723,13 +686,17 @@ class MarketplaceArtPainter extends CustomPainter {
 
   @override
   void paint(Canvas c, Size s) {
-    final glow = Paint()..color = accent.withOpacity(.10);
+    final glow = Paint()..color = accent.withValues(alpha: .10);
     c.drawCircle(Offset(s.width * .55, s.height * .34), s.width * .36, glow);
-    final grid = Paint()..color = Colors.white.withOpacity(.035)..strokeWidth = 1;
-    for (double x = 0; x < s.width; x += 44) c.drawLine(Offset(x, 0), Offset(x, s.height), grid);
-    for (double y = 0; y < s.height; y += 44) c.drawLine(Offset(0, y), Offset(s.width, y), grid);
+    final grid = Paint()..color = Colors.white.withValues(alpha: .035)..strokeWidth = 1;
+    for (double x = 0; x < s.width; x += 44) {
+      c.drawLine(Offset(x, 0), Offset(x, s.height), grid);
+    }
+    for (double y = 0; y < s.height; y += 44) {
+      c.drawLine(Offset(0, y), Offset(s.width, y), grid);
+    }
     final tp = TextPainter(
-      text: TextSpan(text: String.fromCharCode(icon.codePoint), style: TextStyle(fontSize: 190, fontFamily: icon.fontFamily, package: icon.fontPackage, color: accent.withOpacity(.20))),
+      text: TextSpan(text: String.fromCharCode(icon.codePoint), style: TextStyle(fontSize: 190, fontFamily: icon.fontFamily, package: icon.fontPackage, color: accent.withValues(alpha: .20))),
       textDirection: TextDirection.ltr,
     )..layout();
     tp.paint(c, Offset((s.width - tp.width) / 2, s.height * .20));
@@ -852,7 +819,7 @@ class _UniversalSearchPageState extends State<UniversalSearchPage> {
             const Text('Sort', style: TextStyle(fontWeight: FontWeight.w800)),
             const SizedBox(width: 8),
             Expanded(child: DropdownButtonFormField<String>(
-              value: sort,
+              initialValue: sort,
               decoration: const InputDecoration(isDense: true, border: OutlineInputBorder()),
               items: const [
                 DropdownMenuItem(value: 'Relevance', child: Text('Relevance')),
@@ -898,7 +865,7 @@ class _UniversalSearchPageState extends State<UniversalSearchPage> {
                         final title = r['title'] as String;
                         final listing = listings.where((x) => x.title == title).cast<Listing?>().firstWhere((x) => x != null, orElse: () => null);
                         if (listing != null) {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => ListingDetails(listing: listing!)));
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => ListingDetails(listing: listing)));
                         } else if (r['type'] == 'People') {
                           final person = professionals.firstWhere((p) => p.name == title, orElse: () => professionals.first);
                           Navigator.push(context, MaterialPageRoute(builder: (_) => ProfessionalProfile(person: person)));

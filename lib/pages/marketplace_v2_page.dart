@@ -87,7 +87,7 @@ class _MarketplaceV2PageState extends State<MarketplaceV2Page> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Expanded(child: Container(decoration: BoxDecoration(color: Colors.white.withOpacity(.04), borderRadius: BorderRadius.circular(14)), child: const Center(child: Icon(Icons.shopping_bag_outlined, size: 48)))),
+                  Expanded(child: Container(decoration: BoxDecoration(color: Colors.white.withValues(alpha: .04), borderRadius: BorderRadius.circular(14)), child: const Center(child: Icon(Icons.shopping_bag_outlined, size: 48)))),
                   const SizedBox(height: 8),
                   Text(p['title']!, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800)),
                   const SizedBox(height: 4),
@@ -129,7 +129,7 @@ class _MarketplaceV2PageState extends State<MarketplaceV2Page> {
       final docs = snap.data!.docs;
       return Column(children: [
         Padding(padding: const EdgeInsets.all(14), child: Row(children: [const Expanded(child: Text('Compare up to 4 products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900))), TextButton(onPressed: docs.isEmpty ? null : service.clearComparison, child: const Text('Clear all'))])),
-        Expanded(child: ListView.builder(padding: const EdgeInsets.symmetric(horizontal: 14), itemCount: docs.length, itemBuilder: (_, i) { final d = docs[i].data(); return Card(child: Padding(padding: const EdgeInsets.all(14), child: Row(children: [const Icon(Icons.inventory_2_outlined, size: 34), const SizedBox(width: 12), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(d['title']?.toString() ?? 'Product', style: const TextStyle(fontWeight: FontWeight.w800)), Text(d['price']?.toString() ?? '', style: const TextStyle(fontWeight: FontWeight.bold)), Text(d['businessId']?.toString() ?? '', style: const TextStyle(color: Colors.white60, fontSize: 12))]))])); }))
+        Expanded(child: ListView.builder(padding: const EdgeInsets.symmetric(horizontal: 14), itemCount: docs.length, itemBuilder: (_, i) { final d = docs[i].data(); return Card(child: Padding(padding: const EdgeInsets.all(14), child: Row(children: [const Icon(Icons.inventory_2_outlined, size: 34), const SizedBox(width: 12), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(d['title']?.toString() ?? 'Product', style: const TextStyle(fontWeight: FontWeight.w800)), Text(d['price']?.toString() ?? '', style: const TextStyle(fontWeight: FontWeight.bold)), Text(d['businessId']?.toString() ?? '', style: const TextStyle(color: Colors.white60, fontSize: 12))]))]))); }))
       ]);
     },
   );
@@ -152,7 +152,7 @@ class _MarketplaceV2PageState extends State<MarketplaceV2Page> {
     await showModalBottomSheet(context: context, isScrollControlled: true, builder: (ctx) => Padding(padding: EdgeInsets.fromLTRB(16, 16, 16, MediaQuery.of(ctx).viewInsets.bottom + 16), child: StatefulBuilder(builder: (ctx, setSheet) => Column(mainAxisSize: MainAxisSize.min, children: [
       const Text('Request a return', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
       const SizedBox(height: 10),
-      DropdownButtonFormField<String>(value: reason, items: const [DropdownMenuItem(value: 'Wrong item', child: Text('Wrong item')), DropdownMenuItem(value: 'Damaged', child: Text('Damaged')), DropdownMenuItem(value: 'Not as described', child: Text('Not as described'))], onChanged: (v) => setSheet(() => reason = v ?? reason)),
+      DropdownButtonFormField<String>(initialValue: reason, items: const [DropdownMenuItem(value: 'Wrong item', child: Text('Wrong item')), DropdownMenuItem(value: 'Damaged', child: Text('Damaged')), DropdownMenuItem(value: 'Not as described', child: Text('Not as described'))], onChanged: (v) => setSheet(() => reason = v ?? reason)),
       TextField(onChanged: (v) => note = v, decoration: const InputDecoration(labelText: 'Note')),
       const SizedBox(height: 12),
       SizedBox(width: double.infinity, child: FilledButton(onPressed: () async { try { await service.submitReturn(orderId: 'order_id_here', reason: reason, note: note); if (mounted) { Navigator.pop(context); ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Return request submitted'))); } } catch (_) {} }, child: const Text('Submit request'))),
@@ -161,5 +161,5 @@ class _MarketplaceV2PageState extends State<MarketplaceV2Page> {
 
   Widget _orderCard(String id, String status, String amount, IconData icon) => Card(child: ListTile(leading: Icon(icon), title: Text(id, style: const TextStyle(fontWeight: FontWeight.w800)), subtitle: Text(status), trailing: Text(amount, style: const TextStyle(fontWeight: FontWeight.w900))));
 
-  Widget _banner(String title, String subtitle, IconData icon) => Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: const Color(0xFF111822), border: Border.all(color: Colors.white10)), child: Row(children: [Container(width: 44, height: 44, decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(.06)), child: Icon(icon)), const SizedBox(width: 12), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontWeight: FontWeight.w900)), const SizedBox(height: 4), Text(subtitle, style: const TextStyle(color: Colors.white60, height: 1.2))]))]));
+  Widget _banner(String title, String subtitle, IconData icon) => Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: const Color(0xFF111822), border: Border.all(color: Colors.white10)), child: Row(children: [Container(width: 44, height: 44, decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withValues(alpha: .06)), child: Icon(icon)), const SizedBox(width: 12), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontWeight: FontWeight.w900)), const SizedBox(height: 4), Text(subtitle, style: const TextStyle(color: Colors.white60, height: 1.2))]))]));
 }

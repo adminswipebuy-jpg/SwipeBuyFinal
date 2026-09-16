@@ -81,7 +81,7 @@ class _GlobalServicesMarketplacePageState extends State<GlobalServicesMarketplac
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(24),
       gradient: const LinearGradient(colors: [Color(0xFF10271F), Color(0xFF101722)]),
-      border: Border.all(color: const Color(0xFF10B981).withOpacity(.18)),
+      border: Border.all(color: const Color(0xFF10B981).withValues(alpha: .18)),
     ),
     child: const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text('Hire trusted professionals', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
@@ -117,7 +117,7 @@ class _GlobalServicesMarketplacePageState extends State<GlobalServicesMarketplac
           const SizedBox(height: 12),
           Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
           const SizedBox(height: 6),
-          Text('${rating}★  •  From $price', style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w700)),
+          Text('$rating★  •  From $price', style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w700)),
           const SizedBox(height: 12),
           Row(children: [
             Expanded(child: OutlinedButton(onPressed: () => _requestQuote(row), child: const Text('Request quote'))),
@@ -150,7 +150,7 @@ class _GlobalServicesMarketplacePageState extends State<GlobalServicesMarketplac
         const SizedBox(height: 10),
         TextField(controller: price, decoration: const InputDecoration(labelText: 'Starting price', prefixText: 'GHS ')),
         const SizedBox(height: 10),
-        DropdownButtonFormField<String>(value: selected, items: categories.where((x) => x != 'All').map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => selected = v ?? selected), decoration: const InputDecoration(labelText: 'Category')),
+        DropdownButtonFormField<String>(initialValue: selected, items: categories.where((x) => x != 'All').map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setLocal(() => selected = v ?? selected), decoration: const InputDecoration(labelText: 'Category')),
       ])),
       actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')), FilledButton(onPressed: () async {
         await service.publishService(title: title.text.trim(), category: selected, startingPrice: price.text.trim());

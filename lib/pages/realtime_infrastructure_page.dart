@@ -44,7 +44,7 @@ class _RealtimeInfrastructurePageState extends State<RealtimeInfrastructurePage>
       children: [
         const Text('Global Realtime Center', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
         const SizedBox(height: 8),
-        Text('Live presence, typing signals, heartbeat and realtime delivery architecture.', style: TextStyle(color: Colors.white.withOpacity(.7))),
+        Text('Live presence, typing signals, heartbeat and realtime delivery architecture.', style: TextStyle(color: Colors.white.withValues(alpha: .7))),
         const SizedBox(height: 18),
         Card(child: ListTile(leading: Icon(Icons.circle, color: status == 'online' ? Colors.green : Colors.orange), title: const Text('My presence'), subtitle: Text(status), trailing: PopupMenuButton<String>(onSelected: _set, itemBuilder: (_) => const [PopupMenuItem(value: 'online', child: Text('Online')), PopupMenuItem(value: 'away', child: Text('Away')), PopupMenuItem(value: 'offline', child: Text('Offline'))]))),
         const SizedBox(height: 12),

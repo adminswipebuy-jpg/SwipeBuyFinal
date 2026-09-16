@@ -153,9 +153,9 @@ class _MarketingGrowthPageState extends State<MarketingGrowthPage> {
           content: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
             TextField(controller: name, decoration: const InputDecoration(labelText: 'Campaign name')),
             const SizedBox(height: 10),
-            DropdownButtonFormField<String>(value: objective, items: const [DropdownMenuItem(value: 'sales', child: Text('Sales')), DropdownMenuItem(value: 'leads', child: Text('Leads')), DropdownMenuItem(value: 'retention', child: Text('Retention')), DropdownMenuItem(value: 'awareness', child: Text('Awareness'))], onChanged: (v) => setLocal(() => objective = v ?? objective), decoration: const InputDecoration(labelText: 'Objective')),
+            DropdownButtonFormField<String>(initialValue: objective, items: const [DropdownMenuItem(value: 'sales', child: Text('Sales')), DropdownMenuItem(value: 'leads', child: Text('Leads')), DropdownMenuItem(value: 'retention', child: Text('Retention')), DropdownMenuItem(value: 'awareness', child: Text('Awareness'))], onChanged: (v) => setLocal(() => objective = v ?? objective), decoration: const InputDecoration(labelText: 'Objective')),
             const SizedBox(height: 10),
-            DropdownButtonFormField<String>(value: channel, items: const [DropdownMenuItem(value: 'in_app', child: Text('In-app')), DropdownMenuItem(value: 'email', child: Text('Email')), DropdownMenuItem(value: 'whatsapp', child: Text('WhatsApp'))], onChanged: (v) => setLocal(() => channel = v ?? channel), decoration: const InputDecoration(labelText: 'Channel')),
+            DropdownButtonFormField<String>(initialValue: channel, items: const [DropdownMenuItem(value: 'in_app', child: Text('In-app')), DropdownMenuItem(value: 'email', child: Text('Email')), DropdownMenuItem(value: 'whatsapp', child: Text('WhatsApp'))], onChanged: (v) => setLocal(() => channel = v ?? channel), decoration: const InputDecoration(labelText: 'Channel')),
             const SizedBox(height: 10),
             TextField(controller: audience, decoration: const InputDecoration(labelText: 'Audience / segment')),
             const SizedBox(height: 10),

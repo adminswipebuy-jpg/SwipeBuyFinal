@@ -175,14 +175,14 @@ class _BusinessAdsPageState extends State<BusinessAdsPage> {
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               TextField(controller: name, decoration: const InputDecoration(labelText: 'Campaign name')),
               const SizedBox(height: 10),
-              DropdownButtonFormField<String>(value: objective, items: const [
+              DropdownButtonFormField<String>(initialValue: objective, items: const [
                 DropdownMenuItem(value: 'sales', child: Text('Sales')),
                 DropdownMenuItem(value: 'leads', child: Text('Leads')),
                 DropdownMenuItem(value: 'awareness', child: Text('Awareness')),
                 DropdownMenuItem(value: 'app_installs', child: Text('App installs')),
               ], onChanged: (v) => setLocal(() => objective = v ?? objective), decoration: const InputDecoration(labelText: 'Objective')),
               const SizedBox(height: 10),
-              DropdownButtonFormField<String>(value: placement, items: const [
+              DropdownButtonFormField<String>(initialValue: placement, items: const [
                 DropdownMenuItem(value: 'feed', child: Text('Feed')),
                 DropdownMenuItem(value: 'search', child: Text('Search')),
                 DropdownMenuItem(value: 'short_video', child: Text('Short video')),

@@ -49,7 +49,7 @@ class _AiAgentMarketplacePageState extends State<AiAgentMarketplacePage> {
         const SizedBox(height: 10),
         TextField(controller: description, maxLines: 3, decoration: const InputDecoration(labelText: 'What does it do?')),
         const SizedBox(height: 10),
-        DropdownButtonFormField<String>(value: category, items: _categories.where((c) => c != 'All').map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(), onChanged: (v) => setLocal(() => category = v ?? category), decoration: const InputDecoration(labelText: 'Category')),
+        DropdownButtonFormField<String>(initialValue: category, items: _categories.where((c) => c != 'All').map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(), onChanged: (v) => setLocal(() => category = v ?? category), decoration: const InputDecoration(labelText: 'Category')),
         const SizedBox(height: 10),
         TextField(controller: steps, maxLines: 4, decoration: const InputDecoration(labelText: 'Steps (one per line)')),
       ])),
@@ -104,5 +104,5 @@ class _AiAgentMarketplacePageState extends State<AiAgentMarketplacePage> {
     Text('Install reusable task plans created for shopping, jobs, travel, business and more. Agents stay gated: real-world actions still require the appropriate confirmation and trusted backend processing.', style: TextStyle(color: Colors.white70, height: 1.35)),
   ]));
 
-  Widget _tag(String label) => Container(padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5), decoration: BoxDecoration(color: Colors.white.withOpacity(.06), borderRadius: BorderRadius.circular(99)), child: Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w800)));
+  Widget _tag(String label) => Container(padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5), decoration: BoxDecoration(color: Colors.white.withValues(alpha: .06), borderRadius: BorderRadius.circular(99)), child: Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w800)));
 }

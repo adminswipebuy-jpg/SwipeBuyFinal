@@ -71,7 +71,7 @@ class _PersonalizationPageState extends State<PersonalizationPage> {
                 ),
                 const SizedBox(height: 14),
                 DropdownButtonFormField<String>(
-                  value: language,
+                  initialValue: language,
                   decoration: InputDecoration(labelText: 'Content language', filled: true, border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none)),
                   items: const ['English', 'French', 'Arabic', 'Spanish'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(),
                   onChanged: (v) => setState(() => language = v ?? 'English'),

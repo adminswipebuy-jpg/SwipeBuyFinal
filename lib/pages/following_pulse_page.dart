@@ -83,7 +83,7 @@ class _PulseCard extends StatelessWidget {
               Expanded(child: OutlinedButton.icon(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CreatorProfilePage(creatorId: item.ownerId))), icon: const Icon(Icons.person_outline), label: const Text('View creator'))),
               const SizedBox(width: 8),
               if (isListing)
-                Expanded(child: FilledButton.icon(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetailPage(productId: item.id))), icon: const Icon(Icons.shopping_bag_outlined), label: const Text('View'))),
+                Expanded(child: FilledButton.icon(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetailPage(productId: item.id, businessId: item.ownerId, title: 'product'))), icon: const Icon(Icons.shopping_bag_outlined), label: const Text('View'))),
             ]),
           ]),
         ),

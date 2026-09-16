@@ -60,7 +60,7 @@ class _CartCheckoutPageState extends State<CartCheckoutPage> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 18),
           DropdownButtonFormField<String>(
-            value: method,
+            initialValue: method,
             decoration: const InputDecoration(labelText: 'Fulfilment'),
             items: const [
               DropdownMenuItem(value: 'delivery', child: Text('Delivery')),

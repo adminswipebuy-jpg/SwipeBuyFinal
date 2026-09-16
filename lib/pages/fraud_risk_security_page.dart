@@ -56,7 +56,7 @@ class _FraudRiskSecurityPageState extends State<FraudRiskSecurityPage> {
           gradient: const LinearGradient(
             colors: [Color(0xFF241B10), Color(0xFF111827)],
           ),
-          border: Border.all(color: const Color(0xFFF59E0B).withOpacity(.22)),
+          border: Border.all(color: const Color(0xFFF59E0B).withValues(alpha: .22)),
         ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Row(children: [
@@ -120,7 +120,7 @@ class _FraudRiskSecurityPageState extends State<FraudRiskSecurityPage> {
             TextField(controller: transactionId, decoration: const InputDecoration(labelText: 'Transaction / order ID')),
             const SizedBox(height: 10),
             DropdownButtonFormField<String>(
-              value: reportReason,
+              initialValue: reportReason,
               items: const [
                 DropdownMenuItem(value: 'Suspicious transaction', child: Text('Suspicious transaction')),
                 DropdownMenuItem(value: 'Unauthorized activity', child: Text('Unauthorized activity')),

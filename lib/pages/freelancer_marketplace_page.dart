@@ -18,7 +18,9 @@ class _FreelancerMarketplacePageState extends State<FreelancerMarketplacePage> {
   String status = 'Create a professional profile, showcase your work, and prepare proposals.';
 
   @override
-  void dispose() { for (final c in [headline, skills, portfolio, project, pitch, budget]) c.dispose(); super.dispose(); }
+  void dispose() { for (final c in [headline, skills, portfolio, project, pitch, budget]) {
+    c.dispose();
+  } super.dispose(); }
 
   void _publish() {
     FreelancerMarketplaceService.instance.publishProfile(FreelancerProfileDraft(
@@ -47,7 +49,7 @@ class _FreelancerMarketplacePageState extends State<FreelancerMarketplacePage> {
         const SizedBox(height: 10), _field(skills, 'Skills', 'Flutter, Firebase, UI/UX...'),
         const SizedBox(height: 10), _field(portfolio, 'Portfolio link', 'Optional public portfolio URL'),
         const SizedBox(height: 10),
-        DropdownButtonFormField<String>(value: availability, decoration: const InputDecoration(labelText: 'Availability', border: OutlineInputBorder()), items: const [DropdownMenuItem(value: 'Available', child: Text('Available')), DropdownMenuItem(value: 'Open to offers', child: Text('Open to offers')), DropdownMenuItem(value: 'Busy', child: Text('Busy'))], onChanged: (v) => setState(() => availability = v ?? availability)),
+        DropdownButtonFormField<String>(initialValue: availability, decoration: const InputDecoration(labelText: 'Availability', border: OutlineInputBorder()), items: const [DropdownMenuItem(value: 'Available', child: Text('Available')), DropdownMenuItem(value: 'Open to offers', child: Text('Open to offers')), DropdownMenuItem(value: 'Busy', child: Text('Busy'))], onChanged: (v) => setState(() => availability = v ?? availability)),
         const SizedBox(height: 10), SizedBox(width: double.infinity, child: FilledButton.icon(onPressed: _publish, icon: const Icon(Icons.badge_outlined), label: const Text('Save professional profile'))),
       ]))),
       const SizedBox(height: 12),
@@ -63,7 +65,7 @@ class _FreelancerMarketplacePageState extends State<FreelancerMarketplacePage> {
         const Text('Freelancer proposal assistant', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
         const SizedBox(height: 10), _field(project, 'Project title', 'What are you applying for?'),
         const SizedBox(height: 10), _field(pitch, 'Proposal / pitch', 'Explain your approach and relevant experience', lines: 5),
-        const SizedBox(height: 10), _field(budget, 'Proposed budget', 'e.g. $250 fixed or $20/hour'),
+        const SizedBox(height: 10), _field(budget, 'Proposed budget', 'e.g. \$250 fixed or \$20/hour'),
         const SizedBox(height: 10), SizedBox(width: double.infinity, child: FilledButton.icon(onPressed: _proposal, icon: const Icon(Icons.send_outlined), label: const Text('Prepare proposal'))),
       ]))),
       const SizedBox(height: 12),

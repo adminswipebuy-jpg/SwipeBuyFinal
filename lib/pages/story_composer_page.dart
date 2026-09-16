@@ -121,14 +121,14 @@ class _StoryComposerPageState extends State<StoryComposerPage> {
           ),
           const SizedBox(height: 6),
           DropdownButtonFormField<String>(
-            value: category,
+            initialValue: category,
             decoration: InputDecoration(labelText: 'Category', filled: true, border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none)),
             items: categories.map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(),
             onChanged: busy ? null : (v) => setState(() => category = v ?? 'General'),
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
-            value: privacy,
+            initialValue: privacy,
             decoration: InputDecoration(labelText: 'Who can see it?', filled: true, border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none)),
             items: const [
               DropdownMenuItem(value: 'public', child: Text('Everyone')),

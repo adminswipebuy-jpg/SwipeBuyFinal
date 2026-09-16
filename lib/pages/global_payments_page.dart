@@ -64,7 +64,7 @@ class _GlobalPaymentsPageState extends State<GlobalPaymentsPage> {
         const SizedBox(height: 18),
         _label('Country'),
         DropdownButtonFormField<String>(
-          value: country,
+          initialValue: country,
           decoration: const InputDecoration(border: OutlineInputBorder(), prefixIcon: Icon(Icons.flag_outlined)),
           items: countries.keys.map((name) => DropdownMenuItem(value: name, child: Text(name))).toList(),
           onChanged: (value) {
@@ -75,7 +75,7 @@ class _GlobalPaymentsPageState extends State<GlobalPaymentsPage> {
         const SizedBox(height: 14),
         _label('Currency'),
         DropdownButtonFormField<String>(
-          value: currency,
+          initialValue: currency,
           decoration: const InputDecoration(border: OutlineInputBorder(), prefixIcon: Icon(Icons.currency_exchange)),
           items: countries.values.toSet().map((code) => DropdownMenuItem(value: code, child: Text(code))).toList(),
           onChanged: (value) => setState(() => currency = value ?? currency),
@@ -83,7 +83,7 @@ class _GlobalPaymentsPageState extends State<GlobalPaymentsPage> {
         const SizedBox(height: 14),
         _label('Default payment method'),
         DropdownButtonFormField<String>(
-          value: provider,
+          initialValue: provider,
           decoration: const InputDecoration(border: OutlineInputBorder(), prefixIcon: Icon(Icons.payments_outlined)),
           items: providers.map((name) => DropdownMenuItem(value: name, child: Text(name))).toList(),
           onChanged: (value) => setState(() => provider = value ?? provider),

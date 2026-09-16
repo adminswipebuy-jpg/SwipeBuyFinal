@@ -47,7 +47,7 @@ class _PlatformGovernancePageState extends State<PlatformGovernancePage> {
       Card(child: Padding(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Report content, account or marketplace activity', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900)),
         const SizedBox(height: 12),
-        DropdownButtonFormField<String>(value: targetType, items: const [
+        DropdownButtonFormField<String>(initialValue: targetType, items: const [
           DropdownMenuItem(value: 'content', child: Text('Content')),
           DropdownMenuItem(value: 'account', child: Text('Account')),
           DropdownMenuItem(value: 'seller', child: Text('Seller')),

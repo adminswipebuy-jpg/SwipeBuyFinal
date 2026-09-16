@@ -48,7 +48,7 @@ class _AiMemoryPageState extends State<AiMemoryPage> {
       const SizedBox(height: 10),
       TextField(controller: _value, maxLines: 3, decoration: const InputDecoration(labelText: 'What should SwipeBuy remember?', hintText: 'I usually prefer Samsung phones under GH₵2,500', filled: true)),
       const SizedBox(height: 10),
-      DropdownButtonFormField<String>(value: _category, decoration: const InputDecoration(labelText: 'Category', filled: true), items: const ['Preference', 'Budget', 'Location', 'Interest', 'Travel', 'Shopping', 'Other'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => _category = v ?? _category)),
+      DropdownButtonFormField<String>(initialValue: _category, decoration: const InputDecoration(labelText: 'Category', filled: true), items: const ['Preference', 'Budget', 'Location', 'Interest', 'Travel', 'Shopping', 'Other'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => _category = v ?? _category)),
       const SizedBox(height: 12),
       FilledButton.icon(onPressed: _busy ? null : _save, icon: const Icon(Icons.save_outlined), label: Text(_busy ? 'Saving…' : 'Save memory')),
       const SizedBox(height: 24),

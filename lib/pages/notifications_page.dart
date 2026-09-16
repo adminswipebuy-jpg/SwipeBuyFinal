@@ -5,7 +5,7 @@ import 'notification_preferences_page.dart';
 
 class NotificationsPage extends StatelessWidget {
   final NotificationService service;
-  const NotificationsPage({super.key, NotificationService? service}) : service = service ?? NotificationService();
+  NotificationsPage({super.key, NotificationService? service}) : service = service ?? NotificationService();
 
   Future<void> markAllRead(BuildContext context) async {
     final snap = await service.notifications().first;
@@ -39,7 +39,7 @@ class NotificationsPage extends StatelessWidget {
               final data = doc.data();
               final read = data['read'] == true;
               return ListTile(
-                tileColor: read ? null : Colors.white.withOpacity(.035),
+                tileColor: read ? null : Colors.white.withValues(alpha: .035),
                 leading: CircleAvatar(child: Icon(read ? Icons.notifications_none : Icons.notifications_active)),
                 title: Text(data['title']?.toString() ?? 'SwipeBuy', style: TextStyle(fontWeight: read ? FontWeight.w600 : FontWeight.w900)),
                 subtitle: Text(data['body']?.toString() ?? ''),

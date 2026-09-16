@@ -57,7 +57,7 @@ class _CreateContentPageState extends State<CreateContentPage> {
         const Text('Share something people can discover.', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
         const SizedBox(height: 14),
         DropdownButtonFormField<String>(
-          value: category,
+          initialValue: category,
           decoration: const InputDecoration(labelText: 'Category', filled: true),
           items: const ['Sports','News','Forex','Crypto','Investment','Real Estate','Jobs','Education','Fitness','Lifestyle','Food','Hotels','Beauty','Entertainment','Travel','Services']
               .map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),

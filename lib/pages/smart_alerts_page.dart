@@ -5,7 +5,7 @@ import 'notification_preferences_page.dart';
 
 class SmartAlertsPage extends StatelessWidget {
   final SmartAlertService service;
-  const SmartAlertsPage({super.key, SmartAlertService? service}) : service = service ?? SmartAlertService();
+  SmartAlertsPage({super.key, SmartAlertService? service}) : service = service ?? SmartAlertService();
 
   @override
   Widget build(BuildContext context) {

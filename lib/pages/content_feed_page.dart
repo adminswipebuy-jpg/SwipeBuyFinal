@@ -115,7 +115,7 @@ class _ContentFeedViewState extends State<ContentFeedView> {
             ),
             ),
           ),
-        ],
+        )],
       );
       },
     );
@@ -192,7 +192,7 @@ class _ContentCardState extends State<ContentCard> {
                 end: Alignment.bottomCenter,
                 colors: [
                   const Color(0xFF0D1219),
-                  accent.withOpacity(.26),
+                  accent.withValues(alpha: .26),
                   const Color(0xFF05070A),
                 ],
               ),
@@ -223,7 +223,7 @@ class _ContentCardState extends State<ContentCard> {
             bottom: 18,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
-                CircleAvatar(backgroundColor: accent.withOpacity(.22), child: Icon(icon, color: accent)),
+                CircleAvatar(backgroundColor: accent.withValues(alpha: .22), child: Icon(icon, color: accent)),
                 const SizedBox(width: 9),
                 Expanded(child: InkWell(onTap: item.creatorId != null && item.creatorId!.isNotEmpty && item.creatorId != 'unknown' ? () => Navigator.push(context, MaterialPageRoute(builder: (_) => CreatorProfilePage(creatorId: item.creatorId!))) : null, child: Text(item.creator, style: const TextStyle(fontWeight: FontWeight.w800)))),
                 if (item.verified) const Icon(Icons.verified, color: Color(0xFF38D9A9), size: 18),
@@ -337,13 +337,17 @@ class _ArtworkPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final glow = Paint()..color = accent.withOpacity(.10);
+    final glow = Paint()..color = accent.withValues(alpha: .10);
     canvas.drawCircle(Offset(size.width * .52, size.height * .30), size.width * .38, glow);
-    final grid = Paint()..color = Colors.white.withOpacity(.035)..strokeWidth = 1;
-    for (double x = 0; x < size.width; x += 44) canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
-    for (double y = 0; y < size.height; y += 44) canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
+    final grid = Paint()..color = Colors.white.withValues(alpha: .035)..strokeWidth = 1;
+    for (double x = 0; x < size.width; x += 44) {
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), grid);
+    }
+    for (double y = 0; y < size.height; y += 44) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), grid);
+    }
     final tp = TextPainter(
-      text: TextSpan(text: String.fromCharCode(icon.codePoint), style: TextStyle(fontSize: 190, fontFamily: icon.fontFamily, package: icon.fontPackage, color: accent.withOpacity(.20))),
+      text: TextSpan(text: String.fromCharCode(icon.codePoint), style: TextStyle(fontSize: 190, fontFamily: icon.fontFamily, package: icon.fontPackage, color: accent.withValues(alpha: .20))),
       textDirection: TextDirection.ltr,
     )..layout();
     tp.paint(canvas, Offset((size.width - tp.width) / 2, size.height * .17));

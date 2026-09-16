@@ -44,7 +44,7 @@ class _GlobalIdentityVerificationPageState extends State<GlobalIdentityVerificat
 
   Widget _hero(String status) => Container(
     padding: const EdgeInsets.all(18),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), gradient: const LinearGradient(colors: [Color(0xFF10271F), Color(0xFF101722)]), border: Border.all(color: const Color(0xFF10B981).withOpacity(.18))),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), gradient: const LinearGradient(colors: [Color(0xFF10271F), Color(0xFF101722)]), border: Border.all(color: const Color(0xFF10B981).withValues(alpha: .18))),
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const Row(children: [Icon(Icons.verified_user_outlined, color: Color(0xFF10B981), size: 28), SizedBox(width: 10), Text('Trust starts with identity', style: TextStyle(fontSize: 21, fontWeight: FontWeight.w900))]),
       const SizedBox(height: 8),
@@ -63,7 +63,7 @@ class _GlobalIdentityVerificationPageState extends State<GlobalIdentityVerificat
     const SizedBox(height: 10),
     TextField(controller: country, decoration: const InputDecoration(labelText: 'Country / region')),
     const SizedBox(height: 10),
-    DropdownButtonFormField<String>(value: entityType, items: const [DropdownMenuItem(value: 'Individual', child: Text('Individual')), DropdownMenuItem(value: 'Company', child: Text('Company')), DropdownMenuItem(value: 'Organization', child: Text('Organization'))], onChanged: (v) => setState(() => entityType = v ?? entityType), decoration: const InputDecoration(labelText: 'Identity type')),
+    DropdownButtonFormField<String>(initialValue: entityType, items: const [DropdownMenuItem(value: 'Individual', child: Text('Individual')), DropdownMenuItem(value: 'Company', child: Text('Company')), DropdownMenuItem(value: 'Organization', child: Text('Organization'))], onChanged: (v) => setState(() => entityType = v ?? entityType), decoration: const InputDecoration(labelText: 'Identity type')),
     SwitchListTile(contentPadding: EdgeInsets.zero, title: const Text('Business identity'), value: business, onChanged: (v) => setState(() => business = v)),
     SwitchListTile(contentPadding: EdgeInsets.zero, title: const Text('Professional identity'), value: professional, onChanged: (v) => setState(() => professional = v)),
     const SizedBox(height: 8),
@@ -77,7 +77,7 @@ class _GlobalIdentityVerificationPageState extends State<GlobalIdentityVerificat
     Text('Privacy & safety', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900)),
     SizedBox(height: 8),
     Text('SwipeBuy should collect only the identity evidence required for the selected verification path. Sensitive documents, checks and final badge decisions belong in protected backend workflows.', style: TextStyle(color: Colors.white70)),
-  ]));
+  ])));
 
   Future<void> _submit() async {
     if (name.text.trim().isEmpty || country.text.trim().isEmpty) {

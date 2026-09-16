@@ -40,7 +40,7 @@ class LocalDiscoveryService {
       permission = await Geolocator.requestPermission();
     }
     if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
-      throw const PermissionDeniedException();
+      throw const PermissionDeniedException('Location permission denied');
     }
     return Geolocator.getCurrentPosition(
       locationSettings: const LocationSettings(

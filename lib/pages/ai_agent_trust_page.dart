@@ -28,7 +28,7 @@ class _AiAgentTrustPageState extends State<AiAgentTrustPage> {
     final ok = await showDialog<bool>(context: context, builder: (_) => StatefulBuilder(builder: (context, setLocal) => AlertDialog(
       title: const Text('Rate this AI agent'),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
-        DropdownButtonFormField<int>(value: rating, items: [1,2,3,4,5].map((v) => DropdownMenuItem(value: v, child: Text('$v / 5 stars'))).toList(), onChanged: (v) => setLocal(() => rating = v ?? rating), decoration: const InputDecoration(labelText: 'Rating')),
+        DropdownButtonFormField<int>(initialValue: rating, items: [1,2,3,4,5].map((v) => DropdownMenuItem(value: v, child: Text('$v / 5 stars'))).toList(), onChanged: (v) => setLocal(() => rating = v ?? rating), decoration: const InputDecoration(labelText: 'Rating')),
         const SizedBox(height: 10),
         TextField(controller: comment, maxLines: 4, decoration: const InputDecoration(labelText: 'Review', hintText: 'How did the agent perform?')),
       ]),
@@ -47,7 +47,7 @@ class _AiAgentTrustPageState extends State<AiAgentTrustPage> {
     final ok = await showDialog<bool>(context: context, builder: (_) => StatefulBuilder(builder: (context, setLocal) => AlertDialog(
       title: const Text('Report AI agent'),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
-        DropdownButtonFormField<String>(value: reason, items: const ['Unsafe or harmful','Scam or fraud','Privacy concern','Spam or misleading','Copyright or impersonation','Other'].map((v) => DropdownMenuItem(value: v, child: Text(v))).toList(), onChanged: (v) => setLocal(() => reason = v ?? reason), decoration: const InputDecoration(labelText: 'Reason')),
+        DropdownButtonFormField<String>(initialValue: reason, items: const ['Unsafe or harmful','Scam or fraud','Privacy concern','Spam or misleading','Copyright or impersonation','Other'].map((v) => DropdownMenuItem(value: v, child: Text(v))).toList(), onChanged: (v) => setLocal(() => reason = v ?? reason), decoration: const InputDecoration(labelText: 'Reason')),
         const SizedBox(height: 10),
         TextField(controller: details, maxLines: 4, decoration: const InputDecoration(labelText: 'Details (optional)')),
       ]),

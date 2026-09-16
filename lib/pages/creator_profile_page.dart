@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../services/creator_content_service.dart';
 import '../services/creator_profile_service.dart';
 import '../services/content_feed_service.dart';
-import 'content_feed_page.dart';
 import 'video_player_page.dart';
 
 class CreatorProfilePage extends StatefulWidget {

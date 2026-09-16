@@ -130,5 +130,5 @@ class _AiRealWorldActionsPageState extends State<AiRealWorldActionsPage> {
     ]),
   ])));
 
-  Widget _pill(String text) => Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7), decoration: BoxDecoration(color: Colors.white.withOpacity(.06), borderRadius: BorderRadius.circular(999), border: Border.all(color: Colors.white10)), child: Text(text, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)));
+  Widget _pill(String text) => Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7), decoration: BoxDecoration(color: Colors.white.withValues(alpha: .06), borderRadius: BorderRadius.circular(999), border: Border.all(color: Colors.white10)), child: Text(text, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)));
 }

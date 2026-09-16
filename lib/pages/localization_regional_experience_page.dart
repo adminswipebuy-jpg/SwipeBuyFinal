@@ -25,17 +25,17 @@ class _LocalizationRegionalExperiencePageState extends State<LocalizationRegiona
     body: ListView(padding: const EdgeInsets.all(16), children: [
       const Text('SwipeBuy V13.12', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
       const SizedBox(height: 8),
-      DropdownButtonFormField<String>(value: prefs.locale.languageCode, decoration: const InputDecoration(labelText: 'Language'), items: const [
+      DropdownButtonFormField<String>(initialValue: prefs.locale.languageCode, decoration: const InputDecoration(labelText: 'Language'), items: const [
         DropdownMenuItem(value: 'en', child: Text('English')),
         DropdownMenuItem(value: 'fr', child: Text('Français')),
         DropdownMenuItem(value: 'es', child: Text('Español')),
       ], onChanged: (v) => setState(() => prefs = prefs.copyWith(locale: Locale(v!)))),
-      DropdownButtonFormField<String>(value: prefs.countryCode, decoration: const InputDecoration(labelText: 'Country / region'), items: const [
+      DropdownButtonFormField<String>(initialValue: prefs.countryCode, decoration: const InputDecoration(labelText: 'Country / region'), items: const [
         DropdownMenuItem(value: 'GH', child: Text('Ghana')),
         DropdownMenuItem(value: 'US', child: Text('United States')),
         DropdownMenuItem(value: 'GB', child: Text('United Kingdom')),
       ], onChanged: (v) => setState(() => prefs = prefs.copyWith(countryCode: v!))),
-      DropdownButtonFormField<String>(value: prefs.currencyCode, decoration: const InputDecoration(labelText: 'Display currency'), items: const [
+      DropdownButtonFormField<String>(initialValue: prefs.currencyCode, decoration: const InputDecoration(labelText: 'Display currency'), items: const [
         DropdownMenuItem(value: 'GHS', child: Text('Ghana cedi (GHS)')),
         DropdownMenuItem(value: 'USD', child: Text('US dollar (USD)')),
         DropdownMenuItem(value: 'EUR', child: Text('Euro (EUR)')),

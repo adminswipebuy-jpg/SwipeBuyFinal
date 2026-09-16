@@ -61,7 +61,7 @@ class _MerchantOperationsPageState extends State<MerchantOperationsPage> {
           Row(children: [
             Expanded(child: _countCard('Returns', service.returnRequests(), Icons.assignment_return_outlined)),
             const SizedBox(width: 10),
-            Expanded(child: _metricText('Merchant ID', AuthService.currentUser?.uid?.substring(0, 8) ?? 'guest', Icons.badge_outlined)),
+            Expanded(child: _metricText('Merchant ID', AuthService.currentUser?.uid.substring(0, 8) ?? 'guest', Icons.badge_outlined)),
           ]),
           const SizedBox(height: 14),
           _feature('Inventory controls', 'Monitor stock, low-stock thresholds, SKU readiness and active catalog items.', Icons.inventory_2_outlined),
@@ -189,7 +189,7 @@ class _MerchantOperationsPageState extends State<MerchantOperationsPage> {
   Future<void> _invite() async {
     final email = TextEditingController();
     var role = 'operations';
-    final saved = await showDialog<bool>(context: context, builder: (_) => StatefulBuilder(builder: (context, setLocal) => AlertDialog(title: const Text('Invite team member'), content: Column(mainAxisSize: MainAxisSize.min, children: [TextField(controller: email, decoration: const InputDecoration(labelText: 'Email')), const SizedBox(height: 10), DropdownButtonFormField<String>(value: role, items: const [DropdownMenuItem(value: 'operations', child: Text('Operations')), DropdownMenuItem(value: 'support', child: Text('Support')), DropdownMenuItem(value: 'manager', child: Text('Manager'))], onChanged: (v) => setLocal(() => role = v ?? role), decoration: const InputDecoration(labelText: 'Role'))]), actions: [TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')), FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Send invite'))])));
+    final saved = await showDialog<bool>(context: context, builder: (_) => StatefulBuilder(builder: (context, setLocal) => AlertDialog(title: const Text('Invite team member'), content: Column(mainAxisSize: MainAxisSize.min, children: [TextField(controller: email, decoration: const InputDecoration(labelText: 'Email')), const SizedBox(height: 10), DropdownButtonFormField<String>(initialValue: role, items: const [DropdownMenuItem(value: 'operations', child: Text('Operations')), DropdownMenuItem(value: 'support', child: Text('Support')), DropdownMenuItem(value: 'manager', child: Text('Manager'))], onChanged: (v) => setLocal(() => role = v ?? role), decoration: const InputDecoration(labelText: 'Role'))]), actions: [TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')), FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Send invite'))])));
     if (saved == true) {
       await service.submitTeamInvite(email: email.text, role: role);
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Team invite created.')));

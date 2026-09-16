@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../services/realtime_chat_service.dart';
 import '../services/community_service.dart';
-import '../pages/realtime_chat_page.dart';
 import '../pages/rich_chat_page.dart';
 import '../pages/following_pulse_page.dart';
 import '../pages/community_detail_page.dart';
@@ -58,7 +57,7 @@ class _ChatsTab extends StatelessWidget {
             subtitle: Text(d['lastMessage']?.toString() ?? 'Say hello'),
             trailing: const Icon(Icons.chevron_right),
             onTap: other.isEmpty ? null : () => Navigator.push(context, MaterialPageRoute(builder: (_) => RichChatPage(otherUserId: other, title: d['title']?.toString() ?? 'Chat')),
-          ));
+          )));
         },
       );
     },
@@ -98,7 +97,7 @@ class _CommunitiesTab extends StatelessWidget {
                 const SizedBox(width: 8), FilledButton(onPressed: () => service.join(id), child: const Text('Join')),
               ]),
             )),
-          },
+        );},
         );
       },
     ),
@@ -112,7 +111,7 @@ class _CommunitiesTab extends StatelessWidget {
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         TextField(controller: name, decoration: const InputDecoration(labelText: 'Name')),
         TextField(controller: desc, decoration: const InputDecoration(labelText: 'Description')),
-        DropdownButtonFormField<String>(value: category, items: const ['Football','Finance','Crypto','Jobs','Education','Lifestyle','Shopping'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setModal(() => category = v ?? category)),
+        DropdownButtonFormField<String>(initialValue: category, items: const ['Football','Finance','Crypto','Jobs','Education','Lifestyle','Shopping'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(), onChanged: (v) => setModal(() => category = v ?? category)),
       ]),
       actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')), FilledButton(onPressed: () async { await service.createCommunity(name: name.text, description: desc.text, category: category); if (context.mounted) Navigator.pop(context); }, child: const Text('Create'))],
     )));

@@ -113,7 +113,7 @@ class _CreatorBrandPartnershipsPageState extends State<CreatorBrandPartnershipsP
           TextField(controller: fee, decoration: const InputDecoration(labelText: 'Proposed fee / rate')),
           const SizedBox(height: 10),
           DropdownButtonFormField<String>(
-            value: disclosure,
+            initialValue: disclosure,
             items: const ['Sponsored / Paid partnership', 'Affiliate / commission', 'UGC / content only'].map((x) => DropdownMenuItem(value: x, child: Text(x))).toList(),
             onChanged: (v) => setLocal(() => disclosure = v ?? disclosure),
             decoration: const InputDecoration(labelText: 'Disclosure'),

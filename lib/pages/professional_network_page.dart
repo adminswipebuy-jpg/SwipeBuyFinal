@@ -29,5 +29,5 @@ class _ProfessionalNetworkPageState extends State<ProfessionalNetworkPage> {
     Text('${o.organization} • ${o.location}',style:const TextStyle(color:Colors.white60)),const SizedBox(height:6),Text(o.summary),
     const SizedBox(height:8),Text('${o.members} members / participants',style:const TextStyle(color:Colors.white60)),const SizedBox(height:10),
     SizedBox(width:double.infinity,child:FilledButton.icon(onPressed:(){ProfessionalNetworkService.instance.requestJoin(o);setState(()=>status='Request sent for ${o.title}. Membership and access should be approved by the backend.');},icon:const Icon(Icons.group_add_outlined),label:const Text('Request to join'))
-  ])));
+  )])));
 }

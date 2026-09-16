@@ -62,7 +62,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   final docs=snap.data?.docs ?? const [];
                   if (docs.isEmpty) return Text('${p['currency'] ?? ''} ${p['price'] ?? 0}');
                   return DropdownButtonFormField<String>(
-                    value: selectedVariant,
+                    initialValue: selectedVariant,
                     decoration: const InputDecoration(labelText: 'Choose variant'),
                     items: docs.map((d) {
                       final v=d.data();

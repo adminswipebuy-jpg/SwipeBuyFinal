@@ -66,7 +66,7 @@ class _CreatorStudioPageState extends State<CreatorStudioPage> {
         content: StatefulBuilder(builder: (_, setStateDialog) => Column(mainAxisSize: MainAxisSize.min, children: [
           TextField(controller: title, decoration: const InputDecoration(labelText: 'Live title')),
           const SizedBox(height: 12),
-          DropdownButtonFormField<String>(value: liveCategory, items: const ['Sports','News','Forex','Crypto','Investment','Real Estate','Jobs','Education','Fitness','Lifestyle','Entertainment','Shopping'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setStateDialog(() => liveCategory = v!)),
+          DropdownButtonFormField<String>(initialValue: liveCategory, items: const ['Sports','News','Forex','Crypto','Investment','Real Estate','Jobs','Education','Fitness','Lifestyle','Entertainment','Shopping'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setStateDialog(() => liveCategory = v!)),
         ])),
         actions: [
           TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('Cancel')),
@@ -101,7 +101,7 @@ class _CreatorStudioPageState extends State<CreatorStudioPage> {
         const Text('Quick Story', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
         const SizedBox(height: 6), const Text('Share a behind-the-scenes moment, deal, tip or update.', style: TextStyle(color: Colors.white60)),
         const SizedBox(height: 14),
-        DropdownButtonFormField<String>(value: category, items: const ['Sports','News','Forex','Crypto','Investment','Real Estate','Jobs','Education','Fitness','Lifestyle','Food','Hotels','Beauty','Entertainment','Travel','Services'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => category = v!)),
+        DropdownButtonFormField<String>(initialValue: category, items: const ['Sports','News','Forex','Crypto','Investment','Real Estate','Jobs','Education','Fitness','Lifestyle','Food','Hotels','Beauty','Entertainment','Travel','Services'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(), onChanged: (v) => setState(() => category = v!)),
         const SizedBox(height: 12),
         TextField(controller: caption, maxLines: 3, decoration: const InputDecoration(labelText: 'Story caption', filled: true)),
         const SizedBox(height: 12),

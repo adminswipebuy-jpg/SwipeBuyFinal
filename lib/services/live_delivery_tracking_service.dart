@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -37,6 +38,6 @@ class LiveDeliveryTrackingService {
     // or another routing backend for production road distance and ETA.
     final dLat = (toLat - fromLat).abs();
     final dLng = (toLng - fromLng).abs();
-    return ((dLat * dLat + dLng * dLng) ** 0.5) * 111.0;
+    return math.sqrt(dLat * dLat + dLng * dLng) * 111.0;
   }
 }
