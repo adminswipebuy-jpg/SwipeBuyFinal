@@ -10,11 +10,11 @@ if (kpf.exists()) { kp.load(new FileInputStream(kpf)) }
 android {
     namespace = "com.swipebuy.worldwide"
     ndkVersion = "28.2.13676358"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35
     defaultConfig {
         applicationId = "com.swipebuy.worldwide"
         minSdk = 23
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
