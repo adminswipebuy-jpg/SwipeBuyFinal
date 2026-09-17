@@ -1,6 +1,5 @@
 plugins {
     id "com.android.application"
-    id "com.google.gms.google-services"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
@@ -10,6 +9,7 @@ if (kpf.exists()) { kp.load(new FileInputStream(kpf)) }
 
 android {
     namespace = "com.swipebuy.worldwide"
+    ndkVersion = "28.2.13676358"
     compileSdk = flutter.compileSdkVersion
     defaultConfig {
         applicationId = "com.swipebuy.worldwide"
