@@ -1,22 +1,25 @@
-Set-Content -Path ".github/workflows/android-build.yml" -Value "name: Build SwipeBuy APK
-on: [push, workflow_dispatch]
+name: SwipeBuy Android Build
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
-          java-version: '17'
+          distribution: temurin
+          java-version: "17"
       - uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: stable
+      - run: flutter --version
       - run: flutter pub get
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v4
         with:
           name: SwipeBuy-APK
-          path: build/app/outputs/flutter-apk/*.apk
-"
+          path: build/app/outputs/flutter-apk/app-release.apk
